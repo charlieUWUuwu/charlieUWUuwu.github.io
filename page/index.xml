@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Pages on Charlie&#39;s Blog</title>
+        <link>https://charlieUWUuwu.github.io/page/</link>
+        <description>Recent content in Pages on Charlie&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>Charlie</copyright>
+        <lastBuildDate>Mon, 08 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://charlieUWUuwu.github.io/page/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>About</title>
+        <link>https://charlieUWUuwu.github.io/about/</link>
+        <pubDate>Mon, 08 Apr 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://charlieUWUuwu.github.io/about/</guid>
+        <description>&lt;p&gt;這個人很懶，還沒寫自我介紹&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Archives</title>
+        <link>https://charlieUWUuwu.github.io/archives/</link>
+        <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
+        
+        <guid>https://charlieUWUuwu.github.io/archives/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Links</title>
+        <link>https://charlieUWUuwu.github.io/links/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://charlieUWUuwu.github.io/links/</guid>
+        <description>&lt;p&gt;各種不是很重要的連結，之後想到補上&lt;/p&gt;
+&lt;!-- To use this feature, add `links` section to frontmatter.
+
+This page&#39;s frontmatter:
+
+```yaml
+links:
+  - title: GitHub
+    description: GitHub is the world&#39;s largest software development platform.
+    website: https://github.com
+    image: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+  - title: TypeScript
+    description: TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
+    website: https://www.typescriptlang.org
+    image: ts-logo-128.jpg
+```
+
+`image` field accepts both local and external images. --&gt;</description>
+        </item>
+        <item>
+        <title>Search</title>
+        <link>https://charlieUWUuwu.github.io/search/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://charlieUWUuwu.github.io/search/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>

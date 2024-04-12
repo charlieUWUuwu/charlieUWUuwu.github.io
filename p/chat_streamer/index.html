@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="讓 LLMs 流式輸出">
+<title>Chat_streamer</title>
+
+<link rel='canonical' href='https://charlieUWUuwu.github.io/p/chat_streamer/'>
+
+<link rel="stylesheet" href="/scss/style.min.566c8e6a59e087bc9adb3dfec18dabf1251abb7ae42ad2e4b962b62d6170f947.css"><meta property='og:title' content="Chat_streamer">
+<meta property='og:description' content="讓 LLMs 流式輸出">
+<meta property='og:url' content='https://charlieUWUuwu.github.io/p/chat_streamer/'>
+<meta property='og:site_name' content='Charlie&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='LLM' /><meta property='article:published_time' content='2024-04-10T03:30:04&#43;08:00'/><meta property='article:modified_time' content='2024-04-12T16:13:34&#43;00:00'/>
+<meta name="twitter:title" content="Chat_streamer">
+<meta name="twitter:description" content="讓 LLMs 流式輸出">
+<link href="https://db.onlinewebfonts.com/c/3b574ee848875bfa47b0baa923d904d3?family=Iansui+094" rel="stylesheet">
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended">
+    
+        <div id="article-toolbar" style="position: sticky;top: 5px;z-index: 1000;">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#說明">說明</a></li>
+    <li><a href="#用-huggingface-模型做流式輸出">用 HuggingFace 模型做流式輸出</a>
+      <ol>
+        <li><a href="#textstreamer">TextStreamer</a></li>
+        <li><a href="#textiteratorstreamer">TextIteratorStreamer</a></li>
+        <li><a href="#用-chatglm-示範">用 ChatGLM 示範</a></li>
+      </ol>
+    </li>
+    <li><a href="#讓-openai-模型也能流式輸出">讓 OpenAI 模型也能流式輸出</a>
+      <ol>
+        <li><a href="#設定-openai-模型">設定 OpenAI 模型</a></li>
+        <li><a href="#撰寫-chatgptstreamer">撰寫 ChatgptStreamer</a></li>
+        <li><a href="#streamerthread-進行生成">Streamer+Thread 進行生成</a></li>
+        <li><a href="#使用">使用</a></li>
+      </ol>
+    </li>
+    <li><a href="#refs-">refs :</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/deeplearning/" style="background-color: #2a9d8f; color: #fff;">
+                Deeplearning
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/chat_streamer/">Chat_streamer</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            讓 LLMs 流式輸出
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 10, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="說明">
+    <a href="#%e8%aa%aa%e6%98%8e" class="header-anchor">#</a>
+    說明
+</h2><p>就像 ChatGPT 那樣一個字一個字跑出來。這個方法是在 <a class="link" href="https://github.com/hiyouga/LLaMA-Factory"  target="_blank" rel="noopener"
+    >LLaMA-Factory</a> 看到的。
+完整 code 可以在<a class="link" href="https://github.com/charlieUWUuwu/NTTU_meta_campus_chat/blob/develop/src/llmtuner/chat/streamer.py"  target="_blank" rel="noopener"
+    >這個專案</a>裡面找</p>
+<h2 id="用-huggingface-模型做流式輸出">
+    <a href="#%e7%94%a8-huggingface-%e6%a8%a1%e5%9e%8b%e5%81%9a%e6%b5%81%e5%bc%8f%e8%bc%b8%e5%87%ba" class="header-anchor">#</a>
+    用 HuggingFace 模型做流式輸出
+</h2><blockquote>
+<p>HuggingFace 的 v4.30.1 加入了兩個流式輸出的接口</p>
+<ul>
+<li>TextStreamer: 能在 stdout 中流式輸出结果</li>
+<li>TextIteratorStreamer：能在自定義 loop 中進行操作</li>
+</ul>
+</blockquote>
+<h3 id="textstreamer">
+    <a href="#textstreamer" class="header-anchor">#</a>
+    TextStreamer
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1"># 來自 https://huggingface.co/docs/transformers/main/generation_strategies</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">TextStreamer</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"> 
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="n">tok</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&#34;gpt2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&#34;gpt2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="n">inputs</span> <span class="o">=</span> <span class="n">tok</span><span class="p">([</span><span class="s2">&#34;An increasing sequence: one,&#34;</span><span class="p">],</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&#34;pt&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="n">streamer</span> <span class="o">=</span> <span class="n">TextStreamer</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"> 
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="c1"># Despite returning the usual output, the streamer will also print the generated text to stdout.</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="n">_</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">,</span> <span class="n">streamer</span><span class="o">=</span><span class="n">streamer</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="textiteratorstreamer">
+    <a href="#textiteratorstreamer" class="header-anchor">#</a>
+    TextIteratorStreamer
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1"># 來自 https://huggingface.co/docs/transformers/main/generation_strategies</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">TextIteratorStreamer</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"> 
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="n">tok</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&#34;gpt2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&#34;gpt2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="n">inputs</span> <span class="o">=</span> <span class="n">tok</span><span class="p">([</span><span class="s2">&#34;An increasing sequence: one,&#34;</span><span class="p">],</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&#34;pt&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="n">streamer</span> <span class="o">=</span> <span class="n">TextIteratorStreamer</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"> 
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="c1"># Run the generation in a separate thread, so that we can fetch the generated text in a non-blocking way.</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="n">generation_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">streamer</span><span class="o">=</span><span class="n">streamer</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="n">thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">generation_kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="n">generated_text</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="k">for</span> <span class="n">new_text</span> <span class="ow">in</span> <span class="n">streamer</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">    <span class="n">generated_text</span> <span class="o">+=</span> <span class="n">new_text</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="n">generated_text</span>
+</span></span></code></pre></div><h3 id="用-chatglm-示範">
+    <a href="#%e7%94%a8-chatglm-%e7%a4%ba%e7%af%84" class="header-anchor">#</a>
+    用 ChatGLM 示範
+</h3><p>參考 <a class="link" href="https://blog.csdn.net/weixin_44491772/article/details/131205174"  target="_blank" rel="noopener"
+    >[AI]如何让语言模型LLMs流式输出：HuggingFace Transformers实现</a> 中的「ChatGLM流式回覆Demo」部分</p>
+<h2 id="讓-openai-模型也能流式輸出">
+    <a href="#%e8%ae%93-openai-%e6%a8%a1%e5%9e%8b%e4%b9%9f%e8%83%bd%e6%b5%81%e5%bc%8f%e8%bc%b8%e5%87%ba" class="header-anchor">#</a>
+    讓 OpenAI 模型也能流式輸出
+</h2><p>參考 <a class="link" href="https://github.com/huggingface/transformers/blob/main/src/transformers/generation/streamers.py#L24"  target="_blank" rel="noopener"
+    >Huggingface 官方實現的 BaseStreamer</a> 寫出來的。</p>
+<h3 id="設定-openai-模型">
+    <a href="#%e8%a8%ad%e5%ae%9a-openai-%e6%a8%a1%e5%9e%8b" class="header-anchor">#</a>
+    設定 OpenAI 模型
+</h3><ul>
+<li><code>streaming</code>設置為<code>True</code>，可以不用等一句話完全生完後才得到回覆</li>
+<li><code>StreamingStdOutCallbackHandler</code> 是 Langchain 的一個 callback 處理器，會在語言模型模型生成新 token 時被觸發(<code>on_llm_new_token</code>())，並透過<code>sys.stdout.write(token)</code>與<code>sys.stdout.flush()</code>來確保輸出即時可見。
+<ul>
+<li>說明可見<a class="link" href="https://blog.csdn.net/China_boy007/article/details/136445246"  target="_blank" rel="noopener"
+    >這個部落格</a></li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln">1</span><span class="cl"><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="kn">from</span> <span class="nn">langchain.callbacks.streaming_stdout</span> <span class="kn">import</span> <span class="n">StreamingStdOutCallbackHandler</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">streaming</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">StreamingStdOutCallbackHandler</span><span class="p">()],</span> <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="撰寫-chatgptstreamer">
+    <a href="#%e6%92%b0%e5%af%ab-chatgptstreamer" class="header-anchor">#</a>
+    撰寫 ChatgptStreamer
+</h3><p>主要是透過 Python 的 Iterator 來實現的。</p>
+<ul>
+<li><code>_on_finalized_text()</code> : 將收到的 text 存到 queue，直到收到 stream 結束訊號(stream_end==True)，</li>
+<li><code>model_generate()</code> : 接收語言模型並調用<code>.stream()</code>來獲得流式輸出，最後後塞入<code>stop_signal</code>表輸出結束。</li>
+<li></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Queue</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="k">class</span> <span class="nc">ChatgptStreamer</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">text_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">stop_signal</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="k">def</span> <span class="nf">_on_finalized_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">stream_end</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">        <span class="s2">&#34;&#34;&#34;Put the new text in the queue. If the stream is ending, also put a stop signal in the queue.&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">text_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">        <span class="k">if</span> <span class="n">stream_end</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">text_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_signal</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="k">def</span> <span class="nf">model_generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">system</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">        <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;請你根據以下參考資料回答問題。</span><span class="se">\n</span><span class="s2">相關資料:</span><span class="si">{</span><span class="n">system</span><span class="si">}</span><span class="se">\n</span><span class="s2">問題:</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">_on_finalized_text</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_on_finalized_text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_signal</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    
+</span></span><span class="line"><span class="ln">20</span><span class="cl">    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">        <span class="k">return</span> <span class="bp">self</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">
+</span></span><span class="line"><span class="ln">23</span><span class="cl">    <span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_queue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_signal</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">            <span class="k">raise</span> <span class="ne">StopIteration</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">            <span class="k">return</span> <span class="n">value</span>
+</span></span></code></pre></div><h3 id="streamerthread-進行生成">
+    <a href="#streamerthread-%e9%80%b2%e8%a1%8c%e7%94%9f%e6%88%90" class="header-anchor">#</a>
+    Streamer+Thread 進行生成
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nd">@torch.inference_mode</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="k">def</span> <span class="nf">stream_chat</span><span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="bp">self</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="n">history</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">    <span class="n">system</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="o">**</span><span class="n">input_kwargs</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="n">gen_kwargs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_args</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">history</span><span class="p">,</span> <span class="n">system</span><span class="p">,</span> <span class="o">**</span><span class="n">input_kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="k">if</span> <span class="n">gen_kwargs</span> <span class="o">==</span> <span class="p">{}:</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">        <span class="c1"># 使用 ChatOpenAI </span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">        <span class="n">streamer</span> <span class="o">=</span> <span class="n">ChatgptStreamer</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">        <span class="n">thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">streamer</span><span class="o">.</span><span class="n">model_generate</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">system</span><span class="p">,</span> <span class="n">query</span><span class="p">))</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">        <span class="c1"># 使用 Huggingface 模型</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">        <span class="n">streamer</span> <span class="o">=</span> <span class="n">TextIteratorStreamer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tokenizer</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">skip_prompt</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">        <span class="n">gen_kwargs</span><span class="p">[</span><span class="s2">&#34;streamer&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">streamer</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">
+</span></span><span class="line"><span class="ln">19</span><span class="cl">        <span class="n">thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">gen_kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">
+</span></span><span class="line"><span class="ln">21</span><span class="cl">    <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">    <span class="k">yield from</span> <span class="n">streamer</span>
+</span></span></code></pre></div><h3 id="使用">
+    <a href="#%e4%bd%bf%e7%94%a8" class="header-anchor">#</a>
+    使用
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="k">def</span> <span class="nf">predict</span><span class="p">(</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">    <span class="bp">self</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">    <span class="n">chatbot</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">    <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">    <span class="n">history</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">    <span class="n">chatbot</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">query</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;chatbot : &#34;</span><span class="p">,</span> <span class="n">chatbot</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    <span class="c1"># 從 VDB 獲取資料</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    <span class="n">system</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    <span class="n">docs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vectordb_manager</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">n_results</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># 回傳最相關的 5 筆相關資料</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">        <span class="n">system</span> <span class="o">+=</span> <span class="n">doc</span><span class="o">.</span><span class="n">page_content</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;系統提示詞 : &#34;</span><span class="p">,</span> <span class="n">system</span><span class="p">)</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">
+</span></span><span class="line"><span class="ln">17</span><span class="cl">    <span class="k">for</span> <span class="n">new_text</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream_chat</span><span class="p">(</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">        <span class="n">query</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">system</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    <span class="p">):</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">        <span class="n">response</span> <span class="o">+=</span> <span class="n">new_text</span> 
+</span></span><span class="line"><span class="ln">21</span><span class="cl">        <span class="n">chatbot</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">query</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">postprocess</span><span class="p">(</span><span class="n">response</span><span class="p">)]</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">        <span class="k">yield</span> <span class="n">chatbot</span><span class="p">,</span> <span class="n">history</span>
+</span></span></code></pre></div><h2 id="refs-">
+    <a href="#refs-" class="header-anchor">#</a>
+    refs :
+</h2><ol>
+<li><a class="link" href="https://blog.csdn.net/weixin_44491772/article/details/131205174"  target="_blank" rel="noopener"
+    >[AI]如何让语言模型LLMs流式输出：HuggingFace Transformers实现</a></li>
+<li><a class="link" href="https://huggingface.co/docs/transformers/main/generation_strategies"  target="_blank" rel="noopener"
+    >HuggingFace 官方文件</a></li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/llm/">LLM</a>
+        
+    </section>
+
+
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            Last updated on Apr 12, 2024 16:13 UTC
+        </span>
+    </section></footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "charliecc" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+<footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 Charlie
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

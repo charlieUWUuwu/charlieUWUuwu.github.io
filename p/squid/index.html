@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="SQUID: Deep Feature In-Painting for Unsupervised Anomaly Detection">
+<title>SQUID</title>
+
+<link rel='canonical' href='https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/p/squid/'>
+
+<link rel="stylesheet" href="/charlieUWUuwu/charlieUWUuwu.github.io.git/scss/style.min.1dd174bc402269e9363bd374c4f154a17ee77039891f2967dbe744bed02d041d.css"><meta property='og:title' content="SQUID">
+<meta property='og:description' content="SQUID: Deep Feature In-Painting for Unsupervised Anomaly Detection">
+<meta property='og:url' content='https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/p/squid/'>
+<meta property='og:site_name' content='Charlie&#39;s Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='CNN' /><meta property='article:tag' content='Anomaly detection' /><meta property='article:published_time' content='2024-04-10T03:30:04&#43;08:00'/><meta property='article:modified_time' content='2024-04-12T21:17:50&#43;08:00'/>
+<meta name="twitter:title" content="SQUID">
+<meta name="twitter:description" content="SQUID: Deep Feature In-Painting for Unsupervised Anomaly Detection">
+<link href="https://db.onlinewebfonts.com/c/3b574ee848875bfa47b0baa923d904d3?family=Iansui+094" rel="stylesheet">
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended">
+    
+        <div id="article-toolbar" style="position: sticky;top: 5px;z-index: 1000;">
+            <a href="/charlieUWUuwu/charlieUWUuwu.github.io.git" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Back</span>
+            </a>
+        </div>
+    
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#放射成像-vs-一般影像">放射成像 vs 一般影像</a></li>
+    <li><a href="#放射成像的先驗知識">放射成像的先驗知識</a></li>
+    <li><a href="#醫療異常檢測作用">醫療異常檢測作用</a></li>
+    <li><a href="#squid-作用">SQUID 作用</a></li>
+    <li><a href="#實驗簡介">實驗簡介</a></li>
+    <li><a href="#貢獻">貢獻</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#anomaly-detection-in-natural-imaging">Anomaly detection in natural imaging</a>
+      <ol>
+        <li><a href="#過往的異常檢測">過往的異常檢測</a></li>
+        <li><a href="#解決無法解釋可能的異常限制">解決&quot;無法解釋可能的異常&quot;限制</a></li>
+      </ol>
+    </li>
+    <li><a href="#anomaly-detection-in-medical-imaging">Anomaly detection in medical imaging</a>
+      <ol>
+        <li><a href="#兩種學習方式檢測不同異常">兩種學習方式，檢測不同異常</a></li>
+        <li><a href="#攝影影像-vs-放射成像">攝影影像 vs 放射成像</a></li>
+      </ol>
+    </li>
+    <li><a href="#memory-networks">Memory networks</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#31-overview">3.1. Overview</a>
+      <ol>
+        <li><a href="#feature-extraction">Feature extraction</a></li>
+        <li><a href="#image-reconstruction">Image reconstruction</a></li>
+        <li><a href="#anomaly-discrimination">Anomaly discrimination</a></li>
+      </ol>
+    </li>
+    <li><a href="#32-inventing-memory-queue-as-dictionary">3.2. Inventing Memory Queue as Dictionary</a>
+      <ol>
+        <li><a href="#motivation">Motivation</a></li>
+        <li><a href="#space-aware-memory">Space-aware memory</a></li>
+        <li><a href="#memory-queue">Memory queue</a></li>
+        <li><a href="#gumbel-shrinkage">Gumbel shrinkage</a></li>
+      </ol>
+    </li>
+    <li><a href="#33-formulating-anomaly-detection-as-inpainting">3.3. Formulating Anomaly Detection as Inpainting</a>
+      <ol>
+        <li><a href="#motivation-1">Motivation</a></li>
+        <li><a href="#in-painting-block">In-painting block</a></li>
+        <li><a href="#masked-shortcut">Masked shortcut</a></li>
+      </ol>
+    </li>
+    <li><a href="#34-anomaly-discrimination">3.4 Anomaly Discrimination</a></li>
+    <li><a href="#35-loss-function">3.5. Loss Function</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#41-new-benchmark">4.1. New Benchmark</a>
+      <ol>
+        <li><a href="#digitanatomy數位解剖學">DigitAnatomy(數位解剖學)</a></li>
+      </ol>
+    </li>
+    <li><a href="#42-public-benchmarks">4.2. Public Benchmarks</a></li>
+    <li><a href="#43-baselines-and-metrics">4.3. Baselines and Metrics</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#51-interpreting-squid-on-digitanatomy">5.1. Interpreting SQUID on DigitAnatomy</a></li>
+    <li><a href="#52-benchmarking-squid-on-chest-radiography">5.2. Benchmarking SQUID on Chest Radiography</a>
+      <ol>
+        <li><a href="#limitation">Limitation</a></li>
+      </ol>
+    </li>
+    <li><a href="#53-ablating消融-key-properties-in-squid">5.3. Ablating(消融) Key Properties in SQUID</a>
+      <ol>
+        <li><a href="#component-study">Component study</a></li>
+        <li><a href="#hyper-parameter-robustness">Hyper-parameter robustness</a></li>
+        <li><a href="#disease-free-training-requirement">Disease-free training requirement?</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/charlieUWUuwu/charlieUWUuwu.github.io.git/categories/deeplearning/" style="background-color: #2a9d8f; color: #fff;">
+                Deeplearning
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/charlieUWUuwu/charlieUWUuwu.github.io.git/p/squid/">SQUID</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            SQUID: Deep Feature In-Painting for Unsupervised Anomaly Detection
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 10, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    4 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="squid-deep-feature-in-painting-for-unsupervised-anomaly-detection">
+    <a href="#squid-deep-feature-in-painting-for-unsupervised-anomaly-detection" class="header-anchor">#</a>
+    SQUID: Deep Feature In-Painting for Unsupervised Anomaly Detection
+</h1><p>paper : <a class="link" href="https://arxiv.org/abs/2111.13495"  target="_blank" rel="noopener"
+    >https://arxiv.org/abs/2111.13495</a></p>
+<h1 id="abstract">
+    <a href="#abstract" class="header-anchor">#</a>
+    Abstract
+</h1><p>射線照相成像協議專注於特定的身體區域，因此產生非常相似的影像並產生跨患者的重複解剖結構。</p>
+<p>為了利用這種結構化訊息，使用 Space-aware Memory Queues for In-painting and Detecting（SQUID）來修復和偵測射線照相影像中的異常。</p>
+<p>證明 SQUID 可以將根深蒂固的解剖結構分類為循環模式(recurrent patterns)。(它可以把固有的人體結構分類為反覆出現的 pattern)</p>
+<p>在推理中，它<strong>可以識別圖像中的異常（未見/修改的模式）</strong>。</p>
+<p>作者創建了一個新的資料集（DigitAnatomy），綜合了胸部解剖學中的空間相關性和一致的形狀。</p>
+<h1 id="1-introduction">
+    <a href="#1-introduction" class="header-anchor">#</a>
+    1. Introduction
+</h1><h2 id="放射成像-vs-一般影像">
+    <a href="#%e6%94%be%e5%b0%84%e6%88%90%e5%83%8f-vs-%e4%b8%80%e8%88%ac%e5%bd%b1%e5%83%8f" class="header-anchor">#</a>
+    放射成像 vs 一般影像
+</h2><ul>
+<li>普通視覺任務有平移不變性的假設(貓出現在左或是右，還是貓)；但放射線成像(radiography imaging)，結構的相對位置和方向是識別的重要特徵。</li>
+<li>且因放射成像在不同患者或設備商評估方式幾乎相似，故一致且重複的解剖結構有助於分析許多關鍵問題，並應被視為放射線成像的顯著優勢。</li>
+</ul>
+<h2 id="放射成像的先驗知識">
+    <a href="#%e6%94%be%e5%b0%84%e6%88%90%e5%83%8f%e7%9a%84%e5%85%88%e9%a9%97%e7%9f%a5%e8%ad%98" class="header-anchor">#</a>
+    放射成像的先驗知識
+</h2><p>有多項研究顯示添加位置特徵、修改目標函數以及約束相對於影像中地標的座標能增強深度網路效能。此偏論文希望能利用一致的解剖模式及其空間資訊，加強深度網路對放射線影像異常的檢測，而無需手動註釋。</p>
+<h2 id="醫療異常檢測作用">
+    <a href="#%e9%86%ab%e7%99%82%e7%95%b0%e5%b8%b8%e6%aa%a2%e6%b8%ac%e4%bd%9c%e7%94%a8" class="header-anchor">#</a>
+    醫療異常檢測作用
+</h2><ul>
+<li>80% 的臨床錯誤是由於放射科醫師漏掉異常造成</li>
+<li>異常檢測作用是向放射科醫生明確指出存在可疑病變，讓他們深入查看掃描結果，減少 80% 的損失。</li>
+<li>作者將異常檢測任務制定為修復(in-painting)任務，使能夠利用放射線照相影像的外觀、位置和佈局的解剖一致性。</li>
+<li>異常檢測的成功有兩個基本假設：首先，數據中很少出現異常；其次，異常現象與正常模式顯著不同。</li>
+</ul>
+<h2 id="squid-作用">
+    <a href="#squid-%e4%bd%9c%e7%94%a8" class="header-anchor">#</a>
+    SQUID 作用
+</h2><ul>
+<li>訓練期間，模型可以透過根據空間位置，對經常出現的解剖模式進行分類來動態維護visual pattern dictionary(視覺模式字典)。</li>
+<li>由於解剖學的consistency(一致性)，健康影像中相同身體區域預計會表達相似的視覺模式，使得unique pattern的總數易於管理(類型不會太多)。</li>
+<li>推理期間，由於無監督指使用健康影像訓練，故異常模式不存在於字典中。當出現異常時，產生的影像就會有所差距。也因此模型可透過區分修復任務的品質來識別異常。</li>
+</ul>
+<h2 id="實驗簡介">
+    <a href="#%e5%af%a6%e9%a9%97%e7%b0%a1%e4%bb%8b" class="header-anchor">#</a>
+    實驗簡介
+</h2><ul>
+<li>在兩個大規模、公開的放射線照相成像資料集上進行了實驗</li>
+<li>ZhangLab dataset: 發現 SQUID 在無監督異常檢測方面明顯優於主流方法超過 5 個百分點。</li>
+<li>Stanford CheXpert dataset: 證明了比最近 13 種無監督異常檢測方法提高了 10 個百分點。</li>
+<li>創建了一個新的資料集（DigitAnatomy）
+<ul>
+<li>闡明放射攝影中胸部解剖結構的空間相關性和一致形狀</li>
+<li>致力於簡化異常檢測方法的開發、評估和解釋</li>
+</ul>
+</li>
+</ul>
+<h2 id="貢獻">
+    <a href="#%e8%b2%a2%e7%8d%bb" class="header-anchor">#</a>
+    貢獻
+</h2><ul>
+<li>用於胸部放射成像的最佳無監督異常檢測方法</li>
+<li>促進異常檢測研究的綜合資料集(DigitAnatomy dataset)</li>
+<li>SQUID 發明 Space-aware Memory Queue（3.2 節）和 Feature-level In-painting （3.3 節），打敗了主流無監督異常檢測方法的限制。</li>
+</ul>
+<h1 id="2-related-work">
+    <a href="#2-related-work" class="header-anchor">#</a>
+    2. Related Work
+</h1><h2 id="anomaly-detection-in-natural-imaging">
+    <a href="#anomaly-detection-in-natural-imaging" class="header-anchor">#</a>
+    Anomaly detection in natural imaging
+</h2><h3 id="過往的異常檢測">
+    <a href="#%e9%81%8e%e5%be%80%e7%9a%84%e7%95%b0%e5%b8%b8%e6%aa%a2%e6%b8%ac" class="header-anchor">#</a>
+    過往的異常檢測
+</h3><ul>
+<li>Reconstruction-based methods: 基於重建的方法訓練模型（例如Auto-Encoder）來恢復原始輸入，並透過分析重建錯誤來識別異常。</li>
+<li>Density-based methods: 估計常態資料分佈（例如透過 VAE 或 GAN）來預測異常。</li>
+</ul>
+<p>然而，透過這些方法學習到的正常影像的分佈無法解釋可能的異常。</p>
+<h3 id="解決無法解釋可能的異常限制">
+    <a href="#%e8%a7%a3%e6%b1%ba%e7%84%a1%e6%b3%95%e8%a7%a3%e9%87%8b%e5%8f%af%e8%83%bd%e7%9a%84%e7%95%b0%e5%b8%b8%e9%99%90%e5%88%b6" class="header-anchor">#</a>
+    解決&quot;無法解釋可能的異常&quot;限制
+</h3><ul>
+<li>本篇作者透過<strong>維護同質醫學影像的 visual pattern memory</strong>來解決。</li>
+<li>先前的其他幾項工作研究了使用影像修復進行異常檢測，即輸入影像的部分內容被屏蔽，並且訓練模型以自我監督的方式恢復遺失的部分。</li>
+<li>還有大量關於檢測影片序列中的異常的工作。伯格曼等人。和薩利希等人提出了類似的<strong>學生-教師網絡</strong>，而我們的方法利用這種結構僅提取輸入感知特徵，並且<strong>教師網絡在推理過程中完全禁用</strong>。</li>
+</ul>
+<h2 id="anomaly-detection-in-medical-imaging">
+    <a href="#anomaly-detection-in-medical-imaging" class="header-anchor">#</a>
+    Anomaly detection in medical imaging
+</h2><h3 id="兩種學習方式檢測不同異常">
+    <a href="#%e5%85%a9%e7%a8%ae%e5%ad%b8%e7%bf%92%e6%96%b9%e5%bc%8f%e6%aa%a2%e6%b8%ac%e4%b8%8d%e5%90%8c%e7%95%b0%e5%b8%b8" class="header-anchor">#</a>
+    兩種學習方式，檢測不同異常
+</h3><ul>
+<li>基於監督學習的方法: 通常用於檢測特定類型的異常，例如病變、病理、腫瘤和結節。</li>
+<li>無監督方法: 檢測一般異常。多為基於 GAN 的做法，但是這些方法需要有關於異常種類的強大先驗知識和假設才能使增強有效。</li>
+</ul>
+<h3 id="攝影影像-vs-放射成像">
+    <a href="#%e6%94%9d%e5%bd%b1%e5%bd%b1%e5%83%8f-vs-%e6%94%be%e5%b0%84%e6%88%90%e5%83%8f" class="header-anchor">#</a>
+    攝影影像 vs 放射成像
+</h3><ul>
+<li>放射成像協議產生具有一致解剖模式的影像，由於微妙的成像線索和重疊的解剖結構，檢測起來更具挑戰性。</li>
+<li>作者提出了一種新穎的方法，可以明確地利用放射線照相影像的屬性，顯著提高放射線照相影像異常檢測的性能。</li>
+</ul>
+<h2 id="memory-networks">
+    <a href="#memory-networks" class="header-anchor">#</a>
+    Memory networks
+</h2><p>過往研究證明，在神經網路中納入記憶模組是有效的。然而現有方法需要不少額外記憶體。</p>
+<p>在本文中，作者克服了記憶體矩陣的局限性，並提出了一種有效且高效的<strong>memory queue</strong>，用於放射線照相影像中的無監督異常檢測。</p>
+<h1 id="3-squid">
+    <a href="#3-squid" class="header-anchor">#</a>
+    3. SQUID
+</h1><h2 id="31-overview">
+    <a href="#31-overview" class="header-anchor">#</a>
+    3.1. Overview
+</h2><p>
+<div class="post-img-view">
+    <a data-fancybox="gallery" href="/img/paper/SQUID/fig1.png">
+        <img src="/img/paper/SQUID/fig1.png" alt="image"  />
+    </a>
+</div>
+
+</p>
+<h3 id="feature-extraction">
+    <a href="#feature-extraction" class="header-anchor">#</a>
+    Feature extraction
+</h3><p>將輸入影像分割成 NxN 個不重疊區塊，將他們輸入 encoder 做特徵提取，這些提取出的特徵用於影像重建。</p>
+<p>而這個 encoder 可以是任何骨幹架構，簡單起見，此處用的是基本的捲積和池化層。</p>
+<h3 id="image-reconstruction">
+    <a href="#image-reconstruction" class="header-anchor">#</a>
+    Image reconstruction
+</h3><p>引入【teacher and student generators】重建原始影像。隨著重建，解剖模式(anatomical patterns)的字典將作為 <strong>Memory Queue</strong> 動態建立和更新。</p>
+<ul>
+<li>Teacher generators: 使用前面 encoder(auto-encoder) 提取出的特徵直接重建影像。充當正規化器，防止學生不斷生成相同的正常影像。</li>
+<li>Student generators: 則是使用後面會提到的 <strong>in-painting block</strong> 增強方法所獲得的特徵。Student generators 目標是根據增強的特徵重建出影像，用於異常辨識。</li>
+</ul>
+<p>teacher and student generators 使用知識蒸餾在 up-smapling 層級上進行耦合。</p>
+<h3 id="anomaly-discrimination">
+    <a href="#anomaly-discrimination" class="header-anchor">#</a>
+    Anomaly discrimination
+</h3><p>作者採用 discriminator 評估產生的影像是真 or 假。且只有 <strong>Student generators</strong> 才會收到從鑑別器導出的梯度(只用來更新Student generators)。兩個生成器和鑑別器相互競爭，直到收斂到平衡。</p>
+<p>經過訓練後，<strong>鑑別器可用於偵測測試影像中的異常</strong>。</p>
+<h2 id="32-inventing-memory-queue-as-dictionary">
+    <a href="#32-inventing-memory-queue-as-dictionary" class="header-anchor">#</a>
+    3.2. Inventing Memory Queue as Dictionary
+</h2><h3 id="motivation">
+    <a href="#motivation" class="header-anchor">#</a>
+    Motivation
+</h3><p>為了打造「正常」外觀，透過對相似的 pattern 進行加權平均來對特徵做增強。然而，這種增強應用於從整個影像中提取的特徵，會丟棄影像中的空間資訊。因此，當前形式的 Memory Matrix(記憶矩陣) 無法感知放射影像中的解剖一致性。</p>
+<h3 id="space-aware-memory">
+    <a href="#space-aware-memory" class="header-anchor">#</a>
+    Space-aware memory
+</h3><ul>
+<li>為了<strong>獲取空間資訊</strong>，將分割的 patches 而不是整個影像傳遞到模型中。</li>
+<li>特定位置的 patch 只能存取整個 Memory Matrix 中的對應段，以此建立特定關係。稱為【<strong>Space-aware memory</strong>】。</li>
+<li>可加快增強速度，因為它不再透過整個 Memory Matrix 來組裝類似的特徵。
+
+<div class="post-img-view">
+    <a data-fancybox="gallery" href="/img/paper/SQUID/fig2.png">
+        <img src="/img/paper/SQUID/fig2.png" alt="image"  />
+    </a>
+</div>
+
+</li>
+</ul>
+<h3 id="memory-queue">
+    <a href="#memory-queue" class="header-anchor">#</a>
+    Memory queue
+</h3><p>在 learning-based Memory Matrix，normal patterns 是結合 matrix basis 形成的，但這種組合和實際影像特徵之間總是存在分佈差異，使後續影像生成變得困難。</p>
+<p>作者提出 Memory queue 在模型訓練期間<strong>儲存真實影像特徵</strong>，從而呈現與影像特徵相同的分佈，他在訓練期間直接將先前看到的特徵複製到 queue 中。訓練後，Memory queue 可當作正常解剖 pattern 的字典。</p>
+<h3 id="gumbel-shrinkage">
+    <a href="#gumbel-shrinkage" class="header-anchor">#</a>
+    Gumbel shrinkage
+</h3><p>控制 Memory matrix 中 activated patterns 的數量有利於異常檢測。然而，設定 hard shrinkage threshold 無法處理記憶體中找不到合適 entries(條目)的情況。</p>
+<p>一種自然的解法是將梯度流過記憶體中的 top-k 個相似 pattern。然而，其餘未啟動的條目無法接收任何梯度並按預期進行更新。因此提出了 Gumbel shrinkage schema:</p>
+<blockquote>
+<p>$w&rsquo; = sg(hs(w; topk(w))-ϕ(w))+ϕ(w)$</p>
+</blockquote>
+<ul>
+<li>w 代表影像 feature 和 entry 間的相似度</li>
+<li>sg(⋅) 代表 stop-gradient，不計算輸入的梯度</li>
+<li>hs(⋅,t) 代表閾值 t 的 hard shrinkage</li>
+<li>ϕ(⋅) 代表 softmax</li>
+<li>這樣確保  memory 中 top-k 個相似 entries 的組合 ，又用 softmax 對所有 entry 進行更新</li>
+</ul>
+<p>作者將其應用於框架中的 memory queue 和 memory matrix。</p>
+<h2 id="33-formulating-anomaly-detection-as-inpainting">
+    <a href="#33-formulating-anomaly-detection-as-inpainting" class="header-anchor">#</a>
+    3.3. Formulating Anomaly Detection as Inpainting
+</h2><h3 id="motivation-1">
+    <a href="#motivation-1" class="header-anchor">#</a>
+    Motivation
+</h3><p>Image in-painting(影像修復) 最初是為了恢復具有鄰近上下文的損壞的影像區域而被提出。因此，作者將異常射線照相圖案修復到健康射線照相圖案中來實現異常檢測。</p>
+<p>修復的影像區域通常被認為與 boundary artifacts(邊界偽影)相關，當進行像素級修復任務時，不良偽影會導致大量誤報。因此作者<strong>在特徵層級實現了修復任務</strong>。潛在特徵對像素級雜訊、旋轉和平移具有更好的不變性，因此更適合後續的異常檢測。</p>
+<h3 id="in-painting-block">
+    <a href="#in-painting-block" class="header-anchor">#</a>
+    In-painting block
+</h3><p>
+<div class="post-img-view">
+    <a data-fancybox="gallery" href="/img/paper/SQUID/fig3.png">
+        <img src="/img/paper/SQUID/fig3.png" alt="image"  />
+    </a>
+</div>
+
+</p>
+<p>作者將 Memory Queue 整合到一個新穎的 in-painting block 中以執行特徵空間修復，修復三步驟如圖。</p>
+<ul>
+<li>【Fig(a)】 : 在 queue 中增強 $w×h$ 個非重疊 patch 特徵 $F_{{(1,1),&hellip;,(w, h)}}$ 到最相似的 normal patterns $N_{{(1,1),&hellip;,(w, h)}}$。</li>
+<li>【Fig(b)】 : 由於 $N$ 是由從先前的訓練資料中提取的特徵組成，因此 $N$ 不受當前輸入影像的影響。為了回顧輸入影像的特徵，我們使用 transformer block 來聚合 patch 特徵 $F$ 及其增強特徵 $N$。
+<ul>
+<li>對於每個 patch $F_{i,j}$，其相鄰的八個增強區塊 $N_{(i-1,j-1),&hellip;,(i+1,j+1)}$ 被用做細化(refine) $F_{i,j}$ 的條件。</li>
+</ul>
+</li>
+</ul>
+<p>Transformer block 的 query token 被展平為 $F_{i,j}∈R^{1×*}$ ； 而 key/value tokens 則展平為 $N_{(i-1,j-1),&hellip;,(i+1,j+1)}∈R^{8×*}$。</p>
+<p>在 in-painting block 的開始和結束處，作者用了一對額外的 point-wise convolutions（1×1 卷積核）。</p>
+<h3 id="masked-shortcut">
+    <a href="#masked-shortcut" class="header-anchor">#</a>
+    Masked shortcut
+</h3><p>作者在 in-painting block 中使用，以此<strong>更好地聚合特徵並簡化最佳化</strong>。</p>
+<p>作者實證表明，direct residual connection（直接殘差連接）會降低 in-painting block 的有效性，因此在訓練期間利用　random binary mask　來門控快捷特徵【Fig(b)】。給定輸入 patch 特徵 $F$，in-painting block 的輸出透過以下方式獲得：</p>
+<p>$F&rsquo;=(1-δ)⋅F+δ⋅inpaint(F)$</p>
+<ul>
+<li>inpaint(·): 設計的 in-painting block</li>
+<li>δ ~ Bernoulli(ρ): 具有閘控機率(gating probability)的二元變數</li>
+</ul>
+<p>在每個訓練步獲得 $F&rsquo;$ 後，原始的 $F$ 被複製來更新記憶體【Fig(c)】。在推理過程中，完全 shortcut，以便 $F&rsquo; = inpaint(F)$ 進行確定性預測。</p>
+<h2 id="34-anomaly-discrimination">
+    <a href="#34-anomaly-discrimination" class="header-anchor">#</a>
+    3.4 Anomaly Discrimination
+</h2><ul>
+<li>鑑別器評估重建影像，若判定不現實表示發生異常。</li>
+<li>因生成器以正常影像上進行訓練，memory queue 僅儲存 normal pattern。因此在推理中，abnormal pattern 重建的影像預計會顯得不真實。</li>
+<li>小結
+<ul>
+<li>in-painting block 專注在將任何 patch(正常或異常) 特徵增強為類似的“正常”特徵。</li>
+<li>student generator 據“正常”特徵重建“正常”圖像</li>
+<li>teacher generator 用於防止學生無論輸入如何都產生相同的圖像。</li>
+</ul>
+</li>
+</ul>
+<p>沒異常的話，input 和 teacher generator 重建的圖像在語意上應該相差很小。因此，我們委託優化的鑑別器網路來感知異常警報，異常分數計算如下。</p>
+<p>$A=ϕ(\frac{D(G_{s}(E(I)))-μ}{σ})$</p>
+<ul>
+<li>E: encoder</li>
+<li>$G_t$: teacher generator</li>
+<li>$G_s$: student generator</li>
+<li>D: discriminator</li>
+<li>A: 異常分數</li>
+<li>ϕ(⋅): sigmoid function</li>
+<li>μ 和 σ 是根據 training samples 算出的異常分數的平均值和標準差</li>
+</ul>
+<h2 id="35-loss-function">
+    <a href="#35-loss-function" class="header-anchor">#</a>
+    3.5. Loss Function
+</h2><p>共有五種，自己看論文 :D</p>
+<h1 id="4-experiments">
+    <a href="#4-experiments" class="header-anchor">#</a>
+    4. Experiments
+</h1><p>
+<div class="post-img-view">
+    <a data-fancybox="gallery" href="/img/paper/SQUID/table1.png">
+        <img src="/img/paper/SQUID/table1.png" alt="image"  />
+    </a>
+</div>
+
+</p>
+<h2 id="41-new-benchmark">
+    <a href="#41-new-benchmark" class="header-anchor">#</a>
+    4.1. New Benchmark
+</h2><h3 id="digitanatomy數位解剖學">
+    <a href="#digitanatomy%e6%95%b8%e4%bd%8d%e8%a7%a3%e5%89%96%e5%ad%b8" class="header-anchor">#</a>
+    DigitAnatomy(數位解剖學)
+</h3><p>
+<div class="post-img-view">
+    <a data-fancybox="gallery" href="/img/paper/SQUID/fig4.png">
+        <img src="/img/paper/SQUID/fig4.png" alt="image"  />
+    </a>
+</div>
+
+</p>
+<p>作者創建了一個合成資料集，圖片中有數字 1~9，數字順序正確被視為「正常」；否則異常。異常包括缺失、亂序、翻轉和 zero digit。</p>
+<p>該資料集對於放射線成像尤其有利</p>
+<ul>
+<li>模擬其兩個獨特屬性，即空間相關性和一致形狀。</li>
+<li>無需生物專業知識，更容易進行問題調試。</li>
+<li>容易獲得模擬異常的 ground truth。</li>
+</ul>
+<h2 id="42-public-benchmarks">
+    <a href="#42-public-benchmarks" class="header-anchor">#</a>
+    4.2. Public Benchmarks
+</h2><p>ZhangLab Chest X-ray</p>
+<ul>
+<li>包含健康和肺炎（作為異常）影像</li>
+<li>訓練集
+<ul>
+<li>1349 張正常</li>
+<li>3883 張異常</li>
+</ul>
+</li>
+<li>測試集
+<ul>
+<li>234 張正常</li>
+<li>390 張異常</li>
+</ul>
+</li>
+<li>作者從訓練集中隨機選 200 張影像（100 張正常和 100 張異常影像）作為超參數調整的驗證集。</li>
+<li>所有影像的大小調整為 128x128。</li>
+</ul>
+<p>Stanford CheXpert</p>
+<ul>
+<li>對 front-view PA 影像進行評估，共有 12 種異常</li>
+<li>訓練集
+<ul>
+<li>5249 張正常</li>
+<li>23671 張異常</li>
+<li>使用和 ZhangLab 相同的超參數</li>
+</ul>
+</li>
+<li>測試集
+<ul>
+<li>用訓練集的 250 張正常和 250 張異常進行測試</li>
+</ul>
+</li>
+</ul>
+<h2 id="43-baselines-and-metrics">
+    <a href="#43-baselines-and-metrics" class="header-anchor">#</a>
+    4.3. Baselines and Metrics
+</h2><p>13 個 baseline</p>
+<ul>
+<li>經典 UAD(unsupervised anomaly detection) 方法
+<ul>
+<li>Auto-Encoder, VAE</li>
+</ul>
+</li>
+<li>醫學影像的 SOTA
+<ul>
+<li>Ganomaly、f-AnoGAN、IF、SALAD、</li>
+</ul>
+</li>
+<li>最新的 UAD 方法
+<ul>
+<li>emAE、CutPaste、M-KD、PANDA、PaDiM、IGD</li>
+</ul>
+</li>
+</ul>
+<p>標準指標評</p>
+<ul>
+<li>Receiver Operating Characteristic (ROC) curve</li>
+<li>ROC 曲線下面積 (AUC)、</li>
+<li>準確度 (Acc)</li>
+<li>F1 分數 (F1)</li>
+</ul>
+<p>除非有特別註明，不然都是從頭獨立訓練模型至少三次</p>
+<h1 id="5-results">
+    <a href="#5-results" class="header-anchor">#</a>
+    5. Results
+</h1><h2 id="51-interpreting-squid-on-digitanatomy">
+    <a href="#51-interpreting-squid-on-digitanatomy" class="header-anchor">#</a>
+    5.1. Interpreting SQUID on DigitAnatomy
+</h2><p>承前面數字圖可見，SQUID 重建的圖像比其他方法更有意義和指示性。這主要歸因於 Space-aware memory，由此產生的字典與獨特的模式及其空間訊息相關聯。</p>
+<p>一旦出現異常（例如丟失數字），in-painting block 將透過從字典中組裝前 top-k 個最相似的 pattern 來將異常特徵增強到其正常對應特徵。</p>
+<p>GAN 傾向於重建訓練樣本平均得到的影像。MemAE 由於其 memory matrix 而表現相對較好，但對於缺失數字的異常效果不佳，在極端異常攻擊上完全失敗。</p>
+<h2 id="52-benchmarking-squid-on-chest-radiography">
+    <a href="#52-benchmarking-squid-on-chest-radiography" class="header-anchor">#</a>
+    5.2. Benchmarking SQUID on Chest Radiography
+</h2><p>
+<div class="post-img-view">
+    <a data-fancybox="gallery" href="/img/paper/SQUID/fig5.png">
+        <img src="/img/paper/SQUID/fig5.png" alt="image"  />
+    </a>
+</div>
+
+</p>
+<p>圖中視覺化了 SQUID 在正常和異常影像上的重建結果。正常情況下，SQUID可以很容易地在 Memory Queue 中找到相似的匹配，順利實現重建；對於異常情況，將偽造的正常 pattern 強加到異常特徵中就會產生矛盾。這樣，生成的圖像將與輸入顯著不同，然後由鑑別器捕獲。</p>
+<h3 id="limitation">
+    <a href="#limitation" class="header-anchor">#</a>
+    Limitation
+</h3><ul>
+<li>目前形式的 SQUID 無法在像素層級精確定位異常。</li>
+<li>因為 SQUID 是一種無監督方法，需要對正常/異常影像進行零手動註釋。</li>
+<li>那些像素級別的異常檢測會遭遇放大雜訊的影響，但是由於 SQUID 是在特徵層級進行的，比像素級別更加 robust。</li>
+</ul>
+<h2 id="53-ablating消融-key-properties-in-squid">
+    <a href="#53-ablating%e6%b6%88%e8%9e%8d-key-properties-in-squid" class="header-anchor">#</a>
+    5.3. Ablating(消融) Key Properties in SQUID
+</h2><h3 id="component-study">
+    <a href="#component-study" class="header-anchor">#</a>
+    Component study
+</h3><p>
+<div class="post-img-view">
+    <a data-fancybox="gallery" href="/img/paper/SQUID/table2.png">
+        <img src="/img/paper/SQUID/table2.png" alt="image"  />
+    </a>
+</div>
+
+</p>
+<h3 id="hyper-parameter-robustness">
+    <a href="#hyper-parameter-robustness" class="header-anchor">#</a>
+    Hyper-parameter robustness
+</h3><p>
+<div class="post-img-view">
+    <a data-fancybox="gallery" href="/img/paper/SQUID/fig6.png">
+        <img src="/img/paper/SQUID/fig6.png" alt="image"  />
+    </a>
+</div>
+
+</p>
+<h3 id="disease-free-training-requirement">
+    <a href="#disease-free-training-requirement" class="header-anchor">#</a>
+    Disease-free training requirement?
+</h3><p>
+<div class="post-img-view">
+    <a data-fancybox="gallery" href="/img/paper/SQUID/fig7.png">
+        <img src="/img/paper/SQUID/fig7.png" alt="image"  />
+    </a>
+</div>
+
+</p>
+<p>用於醫學異常檢測的無監督方法並不常見，因為所謂的 UAD 方法不是「無監督的」—— 它們必須僅在無疾病影像上進行訓練。</p>
+<p>在實踐中，要獲得健康圖片需要人工標註。</p>
+<p>在訓練集中考慮 disease-free 從 100% - 50% 的情況，把 SQUID 的 robust 和另外三個 baseline 進行比較。</p>
+<p>從圖中可知，SQUID 的 memory queue 可以自動忽略來自少數的 anatomical patterns，容忍高達 50% 的疾病/健康訓練比率。</p>
+<h1 id="conclusion">
+    <a href="#conclusion" class="header-anchor">#</a>
+    Conclusion
+</h1><ul>
+<li>提出 SQUID，用於從放射線影像中進行無監督異常檢測</li>
+<li>SQUID 可以將根深蒂固的解剖結構分類為 recurrent pattern(固定重複出現的 pattern)</li>
+<li>在推理中，SQUID可以準確地識別異常情況</li>
+<li>SQUID 在ZhangLab 資料集上優於主流方法超過 5 點 AUC，在史丹佛 CheXpert 資料集上優於主流方法 10 點 AUC</li>
+<li>合成了 DigitAnatomy 資料集，以類似於放射線照相影像中胸部解剖結構的關鍵屬性</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/charlieUWUuwu/charlieUWUuwu.github.io.git/tags/cnn/">CNN</a>
+        
+            <a href="/charlieUWUuwu/charlieUWUuwu.github.io.git/tags/anomaly-detection/">Anomaly Detection</a>
+        
+    </section>
+
+
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            Last updated on Apr 12, 2024 21:17 CST
+        </span>
+    </section></footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/charlieUWUuwu/charlieUWUuwu.github.io.git/p/chat_streamer/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Chat_streamer</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+
+<footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 Charlie
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/charlieUWUuwu/charlieUWUuwu.github.io.git/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
