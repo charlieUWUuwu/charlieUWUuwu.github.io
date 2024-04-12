@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>CNN on Charlie&#39;s Blog</title>
-        <link>https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/tags/cnn/</link>
+        <link>https://charlieUWUuwu.github.io/tags/cnn/</link>
         <description>Recent content in CNN on Charlie&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Charlie</copyright>
-        <lastBuildDate>Wed, 10 Apr 2024 03:30:04 +0800</lastBuildDate><atom:link href="https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/tags/cnn/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 10 Apr 2024 03:30:04 +0800</lastBuildDate><atom:link href="https://charlieUWUuwu.github.io/tags/cnn/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>SQUID</title>
-        <link>https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/p/squid/</link>
+        <link>https://charlieUWUuwu.github.io/p/squid/</link>
         <pubDate>Wed, 10 Apr 2024 03:30:04 +0800</pubDate>
         
-        <guid>https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/p/squid/</guid>
+        <guid>https://charlieUWUuwu.github.io/p/squid/</guid>
         <description>&lt;h1 id=&#34;squid-deep-feature-in-painting-for-unsupervised-anomaly-detection&#34;&gt;
     &lt;a href=&#34;#squid-deep-feature-in-painting-for-unsupervised-anomaly-detection&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     SQUID: Deep Feature In-Painting for Unsupervised Anomaly Detection
@@ -131,8 +131,8 @@
     3.1. Overview
 &lt;/h2&gt;&lt;p&gt;
 &lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/fig1.png&#34;&gt;
-        &lt;img src=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/fig1.png&#34; alt=&#34;image&#34;  /&gt;
+    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig1.png&#34;&gt;
+        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig1.png&#34; alt=&#34;image&#34;  /&gt;
     &lt;/a&gt;
 &lt;/div&gt;
 
@@ -172,8 +172,8 @@
 &lt;li&gt;可加快增強速度，因為它不再透過整個 Memory Matrix 來組裝類似的特徵。
 
 &lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/fig2.png&#34;&gt;
-        &lt;img src=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/fig2.png&#34; alt=&#34;image&#34;  /&gt;
+    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig2.png&#34;&gt;
+        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig2.png&#34; alt=&#34;image&#34;  /&gt;
     &lt;/a&gt;
 &lt;/div&gt;
 
@@ -213,8 +213,8 @@
     In-painting block
 &lt;/h3&gt;&lt;p&gt;
 &lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/fig3.png&#34;&gt;
-        &lt;img src=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/fig3.png&#34; alt=&#34;image&#34;  /&gt;
+    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig3.png&#34;&gt;
+        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig3.png&#34; alt=&#34;image&#34;  /&gt;
     &lt;/a&gt;
 &lt;/div&gt;
 
@@ -275,8 +275,8 @@
     4. Experiments
 &lt;/h1&gt;&lt;p&gt;
 &lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/table1.png&#34;&gt;
-        &lt;img src=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/table1.png&#34; alt=&#34;image&#34;  /&gt;
+    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/table1.png&#34;&gt;
+        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/table1.png&#34; alt=&#34;image&#34;  /&gt;
     &lt;/a&gt;
 &lt;/div&gt;
 
@@ -289,8 +289,8 @@
     DigitAnatomy(數位解剖學)
 &lt;/h3&gt;&lt;p&gt;
 &lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/fig4.png&#34;&gt;
-        &lt;img src=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/fig4.png&#34; alt=&#34;image&#34;  /&gt;
+    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig4.png&#34;&gt;
+        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig4.png&#34; alt=&#34;image&#34;  /&gt;
     &lt;/a&gt;
 &lt;/div&gt;
 
@@ -382,8 +382,8 @@
     5.2. Benchmarking SQUID on Chest Radiography
 &lt;/h2&gt;&lt;p&gt;
 &lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/fig5.png&#34;&gt;
-        &lt;img src=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/fig5.png&#34; alt=&#34;image&#34;  /&gt;
+    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig5.png&#34;&gt;
+        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig5.png&#34; alt=&#34;image&#34;  /&gt;
     &lt;/a&gt;
 &lt;/div&gt;
 
@@ -405,8 +405,8 @@
     Component study
 &lt;/h3&gt;&lt;p&gt;
 &lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/table2.png&#34;&gt;
-        &lt;img src=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/table2.png&#34; alt=&#34;image&#34;  /&gt;
+    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/table2.png&#34;&gt;
+        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/table2.png&#34; alt=&#34;image&#34;  /&gt;
     &lt;/a&gt;
 &lt;/div&gt;
 
@@ -416,8 +416,8 @@
     Hyper-parameter robustness
 &lt;/h3&gt;&lt;p&gt;
 &lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/fig6.png&#34;&gt;
-        &lt;img src=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/fig6.png&#34; alt=&#34;image&#34;  /&gt;
+    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig6.png&#34;&gt;
+        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig6.png&#34; alt=&#34;image&#34;  /&gt;
     &lt;/a&gt;
 &lt;/div&gt;
 
@@ -427,8 +427,8 @@
     Disease-free training requirement?
 &lt;/h3&gt;&lt;p&gt;
 &lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/fig7.png&#34;&gt;
-        &lt;img src=&#34;https://github.com/charlieUWUuwu/charlieUWUuwu.github.io.git/img/paper/SQUID/fig7.png&#34; alt=&#34;image&#34;  /&gt;
+    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig7.png&#34;&gt;
+        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig7.png&#34; alt=&#34;image&#34;  /&gt;
     &lt;/a&gt;
 &lt;/div&gt;
 
