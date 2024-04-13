@@ -98,7 +98,6 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;_on_finalized_text()&lt;/code&gt; : 將收到的 text 存到 queue，直到收到 stream 結束訊號(stream_end==True)，&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;model_generate()&lt;/code&gt; : 接收語言模型並調用&lt;code&gt;.stream()&lt;/code&gt;來獲得流式輸出，最後後塞入&lt;code&gt;stop_signal&lt;/code&gt;表輸出結束。&lt;/li&gt;
-&lt;li&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;queue&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Queue&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;cl&#34;&gt;
