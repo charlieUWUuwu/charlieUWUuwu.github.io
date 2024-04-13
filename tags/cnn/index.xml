@@ -129,14 +129,16 @@
 &lt;/h1&gt;&lt;h2 id=&#34;31-overview&#34;&gt;
     &lt;a href=&#34;#31-overview&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     3.1. Overview
-&lt;/h2&gt;&lt;p&gt;
-&lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig1.png&#34;&gt;
-        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig1.png&#34; alt=&#34;image&#34;  /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-
-&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig1.png&#34;
+        
+        
+        
+        loading=&#34;lazy&#34;
+        
+            alt=&#34;image&#34;
+        
+        
+    &gt;&lt;/p&gt;
 &lt;h3 id=&#34;feature-extraction&#34;&gt;
     &lt;a href=&#34;#feature-extraction&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     Feature extraction
@@ -170,14 +172,16 @@
 &lt;li&gt;為了&lt;strong&gt;獲取空間資訊&lt;/strong&gt;，將分割的 patches 而不是整個影像傳遞到模型中。&lt;/li&gt;
 &lt;li&gt;特定位置的 patch 只能存取整個 Memory Matrix 中的對應段，以此建立特定關係。稱為【&lt;strong&gt;Space-aware memory&lt;/strong&gt;】。&lt;/li&gt;
 &lt;li&gt;可加快增強速度，因為它不再透過整個 Memory Matrix 來組裝類似的特徵。
-
-&lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig2.png&#34;&gt;
-        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig2.png&#34; alt=&#34;image&#34;  /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-
-&lt;/li&gt;
+&lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig2.png&#34;
+        
+        
+        
+        loading=&#34;lazy&#34;
+        
+            alt=&#34;image&#34;
+        
+        
+    &gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;memory-queue&#34;&gt;
     &lt;a href=&#34;#memory-queue&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
@@ -211,14 +215,16 @@
 &lt;h3 id=&#34;in-painting-block&#34;&gt;
     &lt;a href=&#34;#in-painting-block&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     In-painting block
-&lt;/h3&gt;&lt;p&gt;
-&lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig3.png&#34;&gt;
-        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig3.png&#34; alt=&#34;image&#34;  /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-
-&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig3.png&#34;
+        
+        
+        
+        loading=&#34;lazy&#34;
+        
+            alt=&#34;image&#34;
+        
+        
+    &gt;&lt;/p&gt;
 &lt;p&gt;作者將 Memory Queue 整合到一個新穎的 in-painting block 中以執行特徵空間修復，修復三步驟如圖。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;【Fig(a)】 : 在 queue 中增強 $w×h$ 個非重疊 patch 特徵 $F_{{(1,1),&amp;hellip;,(w, h)}}$ 到最相似的 normal patterns $N_{{(1,1),&amp;hellip;,(w, h)}}$。&lt;/li&gt;
@@ -273,28 +279,32 @@
 &lt;h1 id=&#34;4-experiments&#34;&gt;
     &lt;a href=&#34;#4-experiments&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     4. Experiments
-&lt;/h1&gt;&lt;p&gt;
-&lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/table1.png&#34;&gt;
-        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/table1.png&#34; alt=&#34;image&#34;  /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-
-&lt;/p&gt;
+&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/table1.png&#34;
+        
+        
+        
+        loading=&#34;lazy&#34;
+        
+            alt=&#34;image&#34;
+        
+        
+    &gt;&lt;/p&gt;
 &lt;h2 id=&#34;41-new-benchmark&#34;&gt;
     &lt;a href=&#34;#41-new-benchmark&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     4.1. New Benchmark
 &lt;/h2&gt;&lt;h3 id=&#34;digitanatomy數位解剖學&#34;&gt;
     &lt;a href=&#34;#digitanatomy%e6%95%b8%e4%bd%8d%e8%a7%a3%e5%89%96%e5%ad%b8&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     DigitAnatomy(數位解剖學)
-&lt;/h3&gt;&lt;p&gt;
-&lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig4.png&#34;&gt;
-        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig4.png&#34; alt=&#34;image&#34;  /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-
-&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig4.png&#34;
+        
+        
+        
+        loading=&#34;lazy&#34;
+        
+            alt=&#34;image&#34;
+        
+        
+    &gt;&lt;/p&gt;
 &lt;p&gt;作者創建了一個合成資料集，圖片中有數字 1~9，數字順序正確被視為「正常」；否則異常。異常包括缺失、亂序、翻轉和 zero digit。&lt;/p&gt;
 &lt;p&gt;該資料集對於放射線成像尤其有利&lt;/p&gt;
 &lt;ul&gt;
@@ -380,14 +390,16 @@
 &lt;h2 id=&#34;52-benchmarking-squid-on-chest-radiography&#34;&gt;
     &lt;a href=&#34;#52-benchmarking-squid-on-chest-radiography&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     5.2. Benchmarking SQUID on Chest Radiography
-&lt;/h2&gt;&lt;p&gt;
-&lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig5.png&#34;&gt;
-        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig5.png&#34; alt=&#34;image&#34;  /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-
-&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig5.png&#34;
+        
+        
+        
+        loading=&#34;lazy&#34;
+        
+            alt=&#34;image&#34;
+        
+        
+    &gt;&lt;/p&gt;
 &lt;p&gt;圖中視覺化了 SQUID 在正常和異常影像上的重建結果。正常情況下，SQUID可以很容易地在 Memory Queue 中找到相似的匹配，順利實現重建；對於異常情況，將偽造的正常 pattern 強加到異常特徵中就會產生矛盾。這樣，生成的圖像將與輸入顯著不同，然後由鑑別器捕獲。&lt;/p&gt;
 &lt;h3 id=&#34;limitation&#34;&gt;
     &lt;a href=&#34;#limitation&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
@@ -403,36 +415,42 @@
 &lt;/h2&gt;&lt;h3 id=&#34;component-study&#34;&gt;
     &lt;a href=&#34;#component-study&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     Component study
-&lt;/h3&gt;&lt;p&gt;
-&lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/table2.png&#34;&gt;
-        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/table2.png&#34; alt=&#34;image&#34;  /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-
-&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/table2.png&#34;
+        
+        
+        
+        loading=&#34;lazy&#34;
+        
+            alt=&#34;image&#34;
+        
+        
+    &gt;&lt;/p&gt;
 &lt;h3 id=&#34;hyper-parameter-robustness&#34;&gt;
     &lt;a href=&#34;#hyper-parameter-robustness&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     Hyper-parameter robustness
-&lt;/h3&gt;&lt;p&gt;
-&lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig6.png&#34;&gt;
-        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig6.png&#34; alt=&#34;image&#34;  /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-
-&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig6.png&#34;
+        
+        
+        
+        loading=&#34;lazy&#34;
+        
+            alt=&#34;image&#34;
+        
+        
+    &gt;&lt;/p&gt;
 &lt;h3 id=&#34;disease-free-training-requirement&#34;&gt;
     &lt;a href=&#34;#disease-free-training-requirement&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     Disease-free training requirement?
-&lt;/h3&gt;&lt;p&gt;
-&lt;div class=&#34;post-img-view&#34;&gt;
-    &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig7.png&#34;&gt;
-        &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig7.png&#34; alt=&#34;image&#34;  /&gt;
-    &lt;/a&gt;
-&lt;/div&gt;
-
-&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/SQUID/fig7.png&#34;
+        
+        
+        
+        loading=&#34;lazy&#34;
+        
+            alt=&#34;image&#34;
+        
+        
+    &gt;&lt;/p&gt;
 &lt;p&gt;用於醫學異常檢測的無監督方法並不常見，因為所謂的 UAD 方法不是「無監督的」—— 它們必須僅在無疾病影像上進行訓練。&lt;/p&gt;
 &lt;p&gt;在實踐中，要獲得健康圖片需要人工標註。&lt;/p&gt;
 &lt;p&gt;在訓練集中考慮 disease-free 從 100% - 50% 的情況，把 SQUID 的 robust 和另外三個 baseline 進行比較。&lt;/p&gt;
