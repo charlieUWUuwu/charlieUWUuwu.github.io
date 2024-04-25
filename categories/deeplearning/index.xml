@@ -7,6 +7,468 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Charlie</copyright><atom:link href="https://charlieUWUuwu.github.io/categories/deeplearning/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Pixel2style2pixel</title>
+        <link>https://charlieUWUuwu.github.io/p/pixel2style2pixel/</link>
+        <pubDate>Fri, 26 Apr 2024 00:06:37 +0800</pubDate>
+        
+        <guid>https://charlieUWUuwu.github.io/p/pixel2style2pixel/</guid>
+        <description>&lt;p&gt;先介紹 PGGAN &amp;gt; StyleGAN &amp;gt; pSp&lt;/p&gt;
+&lt;script src= &#39;/js/pdf-js/build/pdf.js&#39;&gt;&lt;/script&gt;
+
+&lt;style&gt;
+  #embed-pdf-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 20vh;
+     
+  }
+  
+  .pdf-canvas {
+    border: 1px solid black;
+    direction: ltr;
+    width: 100%;
+    height: auto;
+    display: none;
+  }
+  
+  #the-canvas {
+    border: 1px solid black;
+    direction: ltr;
+    width: 100%;
+    height: auto;
+    display: none;
+  }
+  
+  
+  .pdf-loadingWrapper {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 350px;
+  }
+  
+  .pdf-loading {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 3px solid #d2d0d0;;
+    border-radius: 50%;
+    border-top-color: #383838;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+  }
+  
+  
+  
+  
+  
+  #overlayText {
+    word-wrap: break-word;
+    display: grid;
+    justify-content: end;
+  }
+  
+  #overlayText a {
+    position: relative;
+    top: 10px;
+    right: 4px;
+    color: #000;
+    margin: auto;
+    background-color: #eeeeee;
+    padding: 0.3em 1em;
+    border: solid 2px;
+    border-radius: 12px;
+    border-color: #00000030;
+    text-decoration: none;
+  }
+  
+  #overlayText svg {
+    height: clamp(1em, 2vw, 1.4em);
+    width:  clamp(1em, 2vw, 1.4em);
+  }
+  
+  
+  
+  @keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+  }
+  @-webkit-keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+  }
+  &lt;/style&gt;&lt;div class=&#34;embed-pdf-container&#34; id=&#34;embed-pdf-container-1cec89bc&#34;&gt;
+    &lt;div class=&#34;pdf-loadingWrapper&#34; id=&#34;pdf-loadingWrapper-1cec89bc&#34;&gt;
+        &lt;div class=&#34;pdf-loading&#34; id=&#34;pdf-loading-1cec89bc&#34;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;overlayText&#34;&gt;
+      &lt;a href=&#34;https://charlieUWUuwu.github.io/file/styleGAN.pdf&#34; aria-label=&#34;Download&#34; download&gt;
+        &lt;svg aria-hidden=&#34;true&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 18 18&#34;&gt;
+            &lt;path d=&#34;M9 13c.3 0 .5-.1.7-.3L15.4 7 14 5.6l-4 4V1H8v8.6l-4-4L2.6 7l5.7 5.7c.2.2.4.3.7.3zm-7 2h14v2H2z&#34; /&gt;
+        &lt;/svg&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+    &lt;canvas class=&#34;pdf-canvas&#34; id=&#34;pdf-canvas-1cec89bc&#34;&gt;&lt;/canvas&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;pdf-paginator&#34; id=&#34;pdf-paginator-1cec89bc&#34;&gt;
+    &lt;button id=&#34;pdf-prev-1cec89bc&#34;&gt;Previous&lt;/button&gt;
+    &lt;button id=&#34;pdf-next-1cec89bc&#34;&gt;Next&lt;/button&gt; &amp;nbsp; &amp;nbsp;
+    &lt;span&gt;
+      &lt;span class=&#34;pdf-pagenum&#34; id=&#34;pdf-pagenum-1cec89bc&#34;&gt;&lt;/span&gt; / &lt;span class=&#34;pdf-pagecount&#34; id=&#34;pdf-pagecount-1cec89bc&#34;&gt;&lt;/span&gt;
+    &lt;/span&gt;
+    &lt;a class=&#34;pdf-source&#34; id=&#34;pdf-source-1cec89bc&#34; href=&#34;https://charlieUWUuwu.github.io/file/styleGAN.pdf&#34;&gt;[pdf]&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;noscript&gt;
+View the PDF file &lt;a class=&#34;pdf-source&#34; id=&#34;pdf-source-noscript-1cec89bc&#34; href=&#34;https://charlieUWUuwu.github.io/file/styleGAN.pdf&#34;&gt;here&lt;/a&gt;.
+&lt;/noscript&gt;
+
+&lt;script type=&#34;text/javascript&#34;&gt;
+    (function(){
+    var url = &#39;\/file\/styleGAN.pdf&#39;;
+
+    var hidePaginator = &#34;&#34; === &#34;true&#34;;
+    var hideLoader = &#34;&#34; === &#34;true&#34;;
+    var selectedPageNum = parseInt(&#34;&#34;) || 1;
+
+    
+    var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;];
+
+    
+    if (pdfjsLib.GlobalWorkerOptions.workerSrc == &#39;&#39;)
+      pdfjsLib.GlobalWorkerOptions.workerSrc = &#34;https:\/\/charlieUWUuwu.github.io\/&#34; + &#39;js/pdf-js/build/pdf.worker.js&#39;;
+
+    
+    var pdfDoc = null,
+        pageNum = selectedPageNum,
+        pageRendering = false,
+        pageNumPending = null,
+        scale = 3,
+        canvas = document.getElementById(&#39;pdf-canvas-1cec89bc&#39;),
+        ctx = canvas.getContext(&#39;2d&#39;),
+        paginator = document.getElementById(&#34;pdf-paginator-1cec89bc&#34;),
+        loadingWrapper = document.getElementById(&#39;pdf-loadingWrapper-1cec89bc&#39;);
+
+
+    
+    showPaginator();
+    showLoader();
+
+    
+
+    function renderPage(num) {
+      pageRendering = true;
+      
+      pdfDoc.getPage(num).then(function(page) {
+        var viewport = page.getViewport({scale: scale});
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        
+        var renderContext = {
+          canvasContext: ctx,
+          viewport: viewport
+        };
+        var renderTask = page.render(renderContext);
+
+        
+        renderTask.promise.then(function() {
+          pageRendering = false;
+          showContent();
+
+          if (pageNumPending !== null) {
+            
+            renderPage(pageNumPending);
+            pageNumPending = null;
+          }
+        });
+      });
+
+      
+      document.getElementById(&#39;pdf-pagenum-1cec89bc&#39;).textContent = num;
+    }
+
+    
+
+    function showContent() {
+      loadingWrapper.style.display = &#39;none&#39;;
+      canvas.style.display = &#39;block&#39;;
+    }
+
+    
+
+    function showLoader() {
+      if(hideLoader) return
+      loadingWrapper.style.display = &#39;flex&#39;;
+      canvas.style.display = &#39;none&#39;;
+    }
+
+    
+
+    function showPaginator() {
+      if(hidePaginator) return
+      paginator.style.display = &#39;block&#39;;
+    }
+
+    
+
+    function queueRenderPage(num) {
+      if (pageRendering) {
+        pageNumPending = num;
+      } else {
+        renderPage(num);
+      }
+    }
+
+    
+
+    function onPrevPage() {
+      if (pageNum &lt;= 1) {
+        return;
+      }
+      pageNum--;
+      queueRenderPage(pageNum);
+    }
+    document.getElementById(&#39;pdf-prev-1cec89bc&#39;).addEventListener(&#39;click&#39;, onPrevPage);
+
+    
+
+    function onNextPage() {
+      if (pageNum &gt;= pdfDoc.numPages) {
+        return;
+      }
+      pageNum++;
+      queueRenderPage(pageNum);
+    }
+    document.getElementById(&#39;pdf-next-1cec89bc&#39;).addEventListener(&#39;click&#39;, onNextPage);
+
+    
+
+    pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+      pdfDoc = pdfDoc_;
+      var numPages = pdfDoc.numPages;
+      document.getElementById(&#39;pdf-pagecount-1cec89bc&#39;).textContent = numPages;
+
+      
+      if(pageNum &gt; numPages) {
+        pageNum = numPages
+      }
+
+      
+      renderPage(pageNum);
+    });
+    })();
+&lt;/script&gt;
+
+&lt;h1 id=&#34;pix2style2pixpsp-論文閱讀&#34;&gt;
+    &lt;a href=&#34;#pix2style2pixpsp-%e8%ab%96%e6%96%87%e9%96%b1%e8%ae%80&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    pix2style2pix(pSp) 論文閱讀
+&lt;/h1&gt;&lt;p&gt;paper: &lt;a class=&#34;link&#34; href=&#34;https://arxiv.org/abs/2008.00951&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Encoding in Style: a StyleGAN Encoder for Image-to-Image Translation&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;abstract&#34;&gt;
+    &lt;a href=&#34;#abstract&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Abstract
+&lt;/h2&gt;&lt;p&gt;先前 styleGAN 已經可以生成高品質的人臉，且可以控制圖像特定特徵(完成特徵解纏)，但主要是針對生成器架構做改進，因此還不能進行 img2img 任務。而 pSp 進行了以下改善 :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;提出&lt;strong&gt;通用框架 pixel2style2pixel(pSp)&lt;/strong&gt;，實現 image-to-image
+&lt;ul&gt;
+&lt;li&gt;新的 encoder + 預訓練 styleGAN generator(decoder)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;提出新的 encoder 架構
+&lt;ul&gt;
+&lt;li&gt;基於特徵金字塔網路 (Feature Pyramid Network)&lt;/li&gt;
+&lt;li&gt;能夠產生 style vector 並輸入到預訓練的 StyleGAN 生成器，形成 extended $\textit{W+}$ latent space&lt;/li&gt;
+&lt;li&gt;不需進行耗時最佳化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;不需要使用成對訓練資料&lt;/li&gt;
+&lt;li&gt;透過對 styleGAN 做 resample，進行多模態合成
+&lt;ul&gt;
+&lt;li&gt;訓練 encoder 時引入 ID loss，避免影像重建後變了一個人(更精準的控制細節)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;
+    &lt;a href=&#34;#introduction&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Introduction
+&lt;/h2&gt;&lt;p&gt;&lt;div class=&#34;post-img-view&#34;&gt;
+        &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/pSp/1_intro.png&#34;&gt;
+            &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/pSp/1_intro.png&#34; loading=&#34;lazy&#34; alt=&#34;image&#34;  /&gt;
+        &lt;/a&gt;
+    &lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;先前 styleGAN 是「invert first, edit later」(先反轉到latent space，再生成影像)，但將真實影像反轉為 512 維向量 w ∈ W 不能做準確的重建。而 pSp 將真實影像編碼到 W+，也就是直接將輸入影像編碼為對應的輸出潛在影像，從而允許處理不屬於 StyleGAN 域的輸入。&lt;/p&gt;
+&lt;p&gt;W+ latent space 由 18 個不同的 512 維 w 向量串聯(18x512x1)，且每一個向量會送給 styleGAN 每一個輸入層，但單一影像用此方法優化就會需要好幾分鐘。因此將真實影像快速且準確地反演為 W+ 仍然是一個挑戰。&lt;/p&gt;
+&lt;p&gt;遵循 pix2pix 精神，定義能夠解決所有任務的通用架構。pix2style2pix 表示先將圖像用 encoder 編碼成 style vector，然後再用 decoer 轉回圖像。&lt;/p&gt;
+&lt;p&gt;不需對手鑑別器 (adversary discriminator)，而直接使用預訓練 styleGAN，因此有以下優勢 :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;生成器僅受 style 控制，沒有直接的空間輸入&lt;/li&gt;
+&lt;li&gt;intermediate style 適合模糊任務的【多模態合成】 (例如 sketch2img、影像高清化等，可以做髮色改變之類的)。這是因為可以對生成的 style 重新採樣來創建輸出圖像的變體。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;the-psp-framework&#34;&gt;
+    &lt;a href=&#34;#the-psp-framework&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    The pSp Framework
+&lt;/h2&gt;&lt;p&gt;&lt;div class=&#34;post-img-view&#34;&gt;
+        &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/pSp/2_framework.png&#34;&gt;
+            &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/pSp/2_framework.png&#34; loading=&#34;lazy&#34; alt=&#34;image&#34;  /&gt;
+        &lt;/a&gt;
+    &lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;使用一個強大的 encoder，能將每個輸入影像與 latent domain 中的準確編碼相匹配。將圖像嵌入到 latent domain 有一些做法&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;(傳統) 從 encoder 最後一層獲得單一 512 維向量，直接 repeat 18 次成為 W+，從而一起學習所有 18 個風格向量。但難以表示原始影像的精細細節，導致重建品質受限。&lt;/li&gt;
+&lt;li&gt;(pSp) 先前 styleGAN 的特徵依據分層結構的深淺，代表不同粒度的特徵。pSp 依此出發，使用特徵金字塔擴展 encoder 主幹，產生三個層級的特徵圖，從全連接層(map2style)提取 style(如上圖) 產生 latent code(512*1)。接著輸入到生成器中對應的地方以產生影像。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;這邊將輸入定義為 :&lt;/p&gt;
+&lt;p&gt;$pSp(x):=G(E(x)+\bar{w})$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;x: 輸入影像&lt;/li&gt;
+&lt;li&gt;E(·) 和 G(·): encoder 跟 StyleGAN 生成器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;公式中，encoder 旨在學習相對於 average style vector 的 latent code。&lt;/p&gt;
+&lt;h3 id=&#34;loss-functions&#34;&gt;
+    &lt;a href=&#34;#loss-functions&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Loss Functions
+&lt;/h3&gt;&lt;p&gt;encoder 的訓練是透過多個 loss 的加權組合而成的。&lt;/p&gt;
+&lt;p&gt;$\mathcal{L_2}(x)=|x-pSp(x)|_2$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;pixel-wise L2 loss&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$\mathcal{L}_{PIPS}(x)=|F(x)-F(pSp(x))|_2$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;為了學習感知相似性，利用 LPIPS 損失(已被證明可以更好地保持影像品質)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$\mathcal{L}_{reg}(x)=|E(x)-\bar{w}|_2$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;鼓勵編碼器輸出更接近平均latent vector的latent styke vector，另外定義的正規化損失&lt;/li&gt;
+&lt;li&gt;與 StyleGAN 中的截斷技巧類似，作者發現在encoder的訓練中添加這種正則化可以提高圖像品質，而不損害輸出的保真度，特別是在更模糊的任務中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$\mathcal{L}_{ID}(x)=1-&amp;lt;R(x),\ R(pSp(x))&amp;gt;$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;處理臉部影像編碼的特定任務時的一個常見挑戰是保存輸入身分，因此採用專用的辨識損失來測量輸出影像與其來源影像之間的餘弦相似度&lt;/li&gt;
+&lt;li&gt;R: 預訓練的 ArcFace 模型&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$\mathcal{L}(x)=\lambda_1\mathcal{L}&lt;em&gt;2(x)+\lambda_2\mathcal{L}&lt;/em&gt;{PIPS}(x)+\lambda_3\mathcal{L}&lt;em&gt;{ID}(x)+\lambda_4\mathcal{L}&lt;/em&gt;{reg}(x)$&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;最終結果。其中$\lambda_1$~$\lambda_4$是定義損失權重的常數。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;the-benefits-of-the-stylegan-domain&#34;&gt;
+    &lt;a href=&#34;#the-benefits-of-the-stylegan-domain&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    The Benefits of The StyleGAN Domain
+&lt;/h3&gt;&lt;p&gt;&lt;div class=&#34;post-img-view&#34;&gt;
+        &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/pSp/3_stylemixing.png&#34;&gt;
+            &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/pSp/3_stylemixing.png&#34; loading=&#34;lazy&#34; alt=&#34;image&#34;  /&gt;
+        &lt;/a&gt;
+    &lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;透過 style domain 做圖像轉換使 pSp 在全局而非local運行，因此不需要像 pix2pix 的對應。&lt;/p&gt;
+&lt;p&gt;由於某些翻譯任務是不明確的，其中單一輸入影像可能對應於多個輸出，因此希望能夠對這些可能的輸出進行取樣。&lt;/p&gt;
+&lt;p&gt;前人文獻提到特徵解纏(語義分離)是因為 layer-wise representation 帶來的，因為能獨立操作特徵，自然就會想要「&lt;strong&gt;多模態數據生成&lt;/strong&gt;」。&lt;/p&gt;
+&lt;p&gt;論文做法如下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;圖片經過 encoder 生成 latent code(18x512x1)，輸入給 style mixing 網路內的 1~7 層使用&lt;/li&gt;
+&lt;li&gt;隨機採樣向量 $w ∈ R^{512}$ ，並複製 w 在 W+ 中產生相應的 latent code，輸入給style mixing 網路內的剩下層。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;可以加入參數來控制兩者的融合，在 pSp 中是在 coarse 跟 medium 層面上使用圖像經 encode 輸出的 style，fine 才使用隨機變量，以保證產生的是同一個人，但有不同的細節變化。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;applications-and-experiments&#34;&gt;
+    &lt;a href=&#34;#applications-and-experiments&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Applications and Experiments
+&lt;/h2&gt;&lt;p&gt;在許多 img2img 的任務尚實驗，確定方法的有效性。&lt;/p&gt;
+&lt;h3 id=&#34;stylegan-inversion&#34;&gt;
+    &lt;a href=&#34;#stylegan-inversion&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    StyleGAN Inversion
+&lt;/h3&gt;&lt;p&gt;在 latent domain 中找到 real image 的 leatent code。也就是要比較 encoder 轉換後的 latent code，能否有比較準確的生成效果。&lt;/p&gt;
+&lt;p&gt;&lt;div class=&#34;post-img-view&#34;&gt;
+        &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/pSp/4_stylegan_inversion.png&#34;&gt;
+            &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/pSp/4_stylegan_inversion.png&#34; loading=&#34;lazy&#34; alt=&#34;image&#34;  /&gt;
+        &lt;/a&gt;
+    &lt;/div&gt;
+結果 :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ALAE 方法在 W 域中運行，無法準確地重建輸入影像。&lt;/li&gt;
+&lt;li&gt;雖然 IDInvert 更好地保留了影像屬性，但它仍然無法準確保留輸入影像的身份和更精細的細節。相較之下，pSp 能夠保留身份，同時重建燈光、髮型和眼鏡等細節。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;✨ IDInvert中，首先將要轉換的圖像編碼成潛在向量（latent code），這個潛在向量是StyleGAN預訓練模型的潛在空間中的一個點。然後，通過對生成的圖像進行直接優化，調整這個潛在向量，使生成的圖像盡可能地接近原始圖像。這樣做的目的是在不重新訓練整個StyleGAN模型的情況下，將圖像轉換到StyleGAN的潛在空間中。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;div class=&#34;post-img-view&#34;&gt;
+        &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/pSp/5_stylegan_inversion2.png&#34;&gt;
+            &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/pSp/5_stylegan_inversion2.png&#34; loading=&#34;lazy&#34; alt=&#34;image&#34;  /&gt;
+        &lt;/a&gt;
+    &lt;/div&gt;
+接著做 pSp 架構的消融實驗&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;W : 從 encoder 最後一層提取出在 512 維的 style vector(屬於 W latent domain)&lt;/li&gt;
+&lt;li&gt;Naive W+ : 承上，接著使用具有附加層的 encoder，將 1x512 特徵向量轉為 18x512 的 W+ 向量。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;結果 :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;W+ 擴展顯著改善了結果，但仍然無法保留更精細的細節。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;div class=&#34;post-img-view&#34;&gt;
+        &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/pSp/6_stylegan_inversion3.png&#34;&gt;
+            &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/pSp/6_stylegan_inversion3.png&#34; loading=&#34;lazy&#34; alt=&#34;image&#34;  /&gt;
+        &lt;/a&gt;
+    &lt;/div&gt;
+有 ID loss 能夠帶來更好的生分特徵(重建後不會變一個人)&lt;/p&gt;
+&lt;p&gt;接下來就是對不同影像生成任務情景做實驗觀察，詳見論文。&lt;/p&gt;
+&lt;h3 id=&#34;face-frontalization&#34;&gt;
+    &lt;a href=&#34;#face-frontalization&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Face Frontalization
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;由於需要非局部轉換並且缺乏配對訓練數據，臉部正面化對於影像到影像轉換框架來說是一項具有挑戰性的任務。
+略&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;conditional-image-synthesis&#34;&gt;
+    &lt;a href=&#34;#conditional-image-synthesis&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Conditional Image Synthesis
+&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;條件影像合成旨在產生基於某些輸入類型的逼真影像。在本節中，我們的 pSp 架構在兩個條件影像生成任務上進行了測試。
+從草圖和語意分割圖產生高品質的人臉影像。
+我們證明，只需進行最小的更改，我們的編碼器就可以成功利用 StyleGAN 的表達能力來產生高品質和多樣化的輸出。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;face-from-sketch&#34;&gt;
+    &lt;a href=&#34;#face-from-sketch&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Face From Sketch
+&lt;/h4&gt;&lt;p&gt;草圖到真實圖過往需要成對資料，然而 pSp 不需要。&lt;/p&gt;
+&lt;p&gt;作者團隊建立了草圖影像資料集，有很多人臉手繪插圖&lt;/p&gt;
+&lt;p&gt;作者觀察到 pSp 獲得更多樣化輸出的能力，這些輸出可以更好地保留更精細的細節（例如臉部毛髮）。&lt;/p&gt;
+&lt;h2 id=&#34;discussion&#34;&gt;
+    &lt;a href=&#34;#discussion&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Discussion
+&lt;/h2&gt;&lt;p&gt;&lt;div class=&#34;post-img-view&#34;&gt;
+        &lt;a data-fancybox=&#34;gallery&#34; href=&#34;https://charlieUWUuwu.github.io/img/paper/pSp/7_discussion.png&#34;&gt;
+            &lt;img src=&#34;https://charlieUWUuwu.github.io/img/paper/pSp/7_discussion.png&#34; loading=&#34;lazy&#34; alt=&#34;image&#34;  /&gt;
+        &lt;/a&gt;
+    &lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;pSp 仍然有一些固有假設(inherent assumptions):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;產生圖像受限
+&lt;ul&gt;
+&lt;li&gt;因為使用預訓練 styleGAN，所以能夠生成的圖像僅限於 styleGAN 可以產生的圖像。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;目前仍難以保留輸入影像的更精細細節(見上圖)
+&lt;ul&gt;
+&lt;li&gt;pSp 的全局方法在不同任務上的通用性高，但還無法保留輸入影像的更精細細節（例如耳環或背景細節）&lt;/li&gt;
+&lt;li&gt;這對於影像修復等任務很重要&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;✨ 其他實驗見論文拉&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;ref&#34;&gt;
+    &lt;a href=&#34;#ref&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Ref
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/xjm850552586/article/details/123113080&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;pixel2style2pixel（pSp）实现解读&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>Chat_streamer</title>
         <link>https://charlieUWUuwu.github.io/p/chat_streamer/</link>
         <pubDate>Wed, 10 Apr 2024 03:30:04 +0800</pubDate>
