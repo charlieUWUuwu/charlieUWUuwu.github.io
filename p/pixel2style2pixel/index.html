@@ -10,7 +10,7 @@
 <meta property='og:description' content="Encoding in Style: a StyleGAN Encoder for Image-to-Image Translation 論文閱讀">
 <meta property='og:url' content='https://charlieUWUuwu.github.io/p/pixel2style2pixel/'>
 <meta property='og:site_name' content='Charlie&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='GAN' /><meta property='article:published_time' content='2024-04-26T00:06:37&#43;08:00'/><meta property='article:modified_time' content='2024-04-25T16:49:08&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='GAN' /><meta property='article:published_time' content='2024-04-26T00:06:37&#43;08:00'/><meta property='article:modified_time' content='2024-06-03T13:44:06&#43;00:00'/>
 <meta name="twitter:title" content="Pixel2style2pixel">
 <meta name="twitter:description" content="Encoding in Style: a StyleGAN Encoder for Image-to-Image Translation 論文閱讀">
     <link rel="shortcut icon" href="/img/favicon.ico" />
@@ -496,8 +496,8 @@ View the PDF file <a class="pdf-source" id="pdf-source-noscript-1cec89bc" href="
     <a href="#introduction" class="header-anchor">#</a>
     Introduction
 </h2><p><div class="post-img-view">
-        <a data-fancybox="gallery" href="/img/paper/pSp/1_intro.png">
-            <img src="/img/paper/pSp/1_intro.png" loading="lazy" alt="image"  />
+        <a data-fancybox="gallery" href="/img/paper/pixel2style2pixel/1_intro.png">
+            <img src="/img/paper/pixel2style2pixel/1_intro.png" loading="lazy" alt="image"  />
         </a>
     </div></p>
 <p>先前 styleGAN 是「invert first, edit later」(先反轉到latent space，再生成影像)，但將真實影像反轉為 512 維向量 w ∈ W 不能做準確的重建。而 pSp 將真實影像編碼到 W+，也就是直接將輸入影像編碼為對應的輸出潛在影像，從而允許處理不屬於 StyleGAN 域的輸入。</p>
@@ -512,8 +512,8 @@ View the PDF file <a class="pdf-source" id="pdf-source-noscript-1cec89bc" href="
     <a href="#the-psp-framework" class="header-anchor">#</a>
     The pSp Framework
 </h2><p><div class="post-img-view">
-        <a data-fancybox="gallery" href="/img/paper/pSp/2_framework.png">
-            <img src="/img/paper/pSp/2_framework.png" loading="lazy" alt="image"  />
+        <a data-fancybox="gallery" href="/img/paper/pixel2style2pixel/2_framework.png">
+            <img src="/img/paper/pixel2style2pixel/2_framework.png" loading="lazy" alt="image"  />
         </a>
     </div></p>
 <p>使用一個強大的 encoder，能將每個輸入影像與 latent domain 中的準確編碼相匹配。將圖像嵌入到 latent domain 有一些做法</p>
@@ -558,8 +558,8 @@ View the PDF file <a class="pdf-source" id="pdf-source-noscript-1cec89bc" href="
     <a href="#the-benefits-of-the-stylegan-domain" class="header-anchor">#</a>
     The Benefits of The StyleGAN Domain
 </h3><p><div class="post-img-view">
-        <a data-fancybox="gallery" href="/img/paper/pSp/3_stylemixing.png">
-            <img src="/img/paper/pSp/3_stylemixing.png" loading="lazy" alt="image"  />
+        <a data-fancybox="gallery" href="/img/paper/pixel2style2pixel/3_stylemixing.png">
+            <img src="/img/paper/pixel2style2pixel/3_stylemixing.png" loading="lazy" alt="image"  />
         </a>
     </div></p>
 <p>透過 style domain 做圖像轉換使 pSp 在全局而非local運行，因此不需要像 pix2pix 的對應。</p>
@@ -582,8 +582,8 @@ View the PDF file <a class="pdf-source" id="pdf-source-noscript-1cec89bc" href="
     StyleGAN Inversion
 </h3><p>在 latent domain 中找到 real image 的 leatent code。也就是要比較 encoder 轉換後的 latent code，能否有比較準確的生成效果。</p>
 <p><div class="post-img-view">
-        <a data-fancybox="gallery" href="/img/paper/pSp/4_stylegan_inversion.png">
-            <img src="/img/paper/pSp/4_stylegan_inversion.png" loading="lazy" alt="image"  />
+        <a data-fancybox="gallery" href="/img/paper/pixel2style2pixel/4_stylegan_inversion.png">
+            <img src="/img/paper/pixel2style2pixel/4_stylegan_inversion.png" loading="lazy" alt="image"  />
         </a>
     </div>
 結果 :</p>
@@ -595,8 +595,8 @@ View the PDF file <a class="pdf-source" id="pdf-source-noscript-1cec89bc" href="
 <p>✨ IDInvert中，首先將要轉換的圖像編碼成潛在向量（latent code），這個潛在向量是StyleGAN預訓練模型的潛在空間中的一個點。然後，通過對生成的圖像進行直接優化，調整這個潛在向量，使生成的圖像盡可能地接近原始圖像。這樣做的目的是在不重新訓練整個StyleGAN模型的情況下，將圖像轉換到StyleGAN的潛在空間中。</p>
 </blockquote>
 <p><div class="post-img-view">
-        <a data-fancybox="gallery" href="/img/paper/pSp/5_stylegan_inversion2.png">
-            <img src="/img/paper/pSp/5_stylegan_inversion2.png" loading="lazy" alt="image"  />
+        <a data-fancybox="gallery" href="/img/paper/pixel2style2pixel/5_stylegan_inversion2.png">
+            <img src="/img/paper/pixel2style2pixel/5_stylegan_inversion2.png" loading="lazy" alt="image"  />
         </a>
     </div>
 接著做 pSp 架構的消融實驗</p>
@@ -609,8 +609,8 @@ View the PDF file <a class="pdf-source" id="pdf-source-noscript-1cec89bc" href="
 <li>W+ 擴展顯著改善了結果，但仍然無法保留更精細的細節。</li>
 </ul>
 <p><div class="post-img-view">
-        <a data-fancybox="gallery" href="/img/paper/pSp/6_stylegan_inversion3.png">
-            <img src="/img/paper/pSp/6_stylegan_inversion3.png" loading="lazy" alt="image"  />
+        <a data-fancybox="gallery" href="/img/paper/pixel2style2pixel/6_stylegan_inversion3.png">
+            <img src="/img/paper/pixel2style2pixel/6_stylegan_inversion3.png" loading="lazy" alt="image"  />
         </a>
     </div>
 有 ID loss 能夠帶來更好的生分特徵(重建後不會變一個人)</p>
@@ -640,8 +640,8 @@ View the PDF file <a class="pdf-source" id="pdf-source-noscript-1cec89bc" href="
     <a href="#discussion" class="header-anchor">#</a>
     Discussion
 </h2><p><div class="post-img-view">
-        <a data-fancybox="gallery" href="/img/paper/pSp/7_discussion.png">
-            <img src="/img/paper/pSp/7_discussion.png" loading="lazy" alt="image"  />
+        <a data-fancybox="gallery" href="/img/paper/pixel2style2pixel/7_discussion.png">
+            <img src="/img/paper/pixel2style2pixel/7_discussion.png" loading="lazy" alt="image"  />
         </a>
     </div></p>
 <p>pSp 仍然有一些固有假設(inherent assumptions):</p>
@@ -691,7 +691,7 @@ View the PDF file <a class="pdf-source" id="pdf-source-noscript-1cec89bc" href="
 
 
         <span>
-            Last updated on Apr 25, 2024 16:49 UTC
+            Last updated on Jun 03, 2024 13:44 UTC
         </span>
     </section></footer>
 
