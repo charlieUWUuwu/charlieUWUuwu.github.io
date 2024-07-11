@@ -10,7 +10,7 @@
 <meta property='og:description' content="常用的指令整理">
 <meta property='og:url' content='https://charlieUWUuwu.github.io/p/github-%E5%9F%BA%E7%A4%8E%E6%8C%87%E4%BB%A4/'>
 <meta property='og:site_name' content='Charlie&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='GitHub' /><meta property='article:tag' content='' /><meta property='article:published_time' content='2024-06-03T21:46:25&#43;08:00'/><meta property='article:modified_time' content='2024-07-06T12:43:03&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='GitHub' /><meta property='article:tag' content='' /><meta property='article:published_time' content='2024-06-03T21:46:25&#43;08:00'/><meta property='article:modified_time' content='2024-07-11T15:37:53&#43;00:00'/>
 <meta name="twitter:title" content="Github 基礎指令">
 <meta name="twitter:description" content="常用的指令整理">
     <link rel="shortcut icon" href="/img/favicon.ico" />
@@ -224,66 +224,66 @@
 </h1><h2 id="下載-git">
     <a href="#%e4%b8%8b%e8%bc%89-git" class="header-anchor">#</a>
     下載 git
-</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># 確認有安裝 git</span>
-</span></span><span class="line"><span class="ln">2</span><span class="cl">$ git --version
-</span></span><span class="line"><span class="ln">3</span><span class="cl">
-</span></span><span class="line"><span class="ln">4</span><span class="cl">$ <span class="nb">cd</span> ./專案所在資料夾
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 確認有安裝 git</span>
+</span></span><span class="line"><span class="cl">$ git --version
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$ <span class="nb">cd</span> ./專案所在資料夾
 </span></span></code></pre></div><h2 id="初次使用-使用者設定">
     <a href="#%e5%88%9d%e6%ac%a1%e4%bd%bf%e7%94%a8-%e4%bd%bf%e7%94%a8%e8%80%85%e8%a8%ad%e5%ae%9a" class="header-anchor">#</a>
     初次使用 使用者設定
-</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">$ git config --global user.name &#34;Eddie Kao&#34;
-</span></span><span class="line"><span class="ln">2</span><span class="cl">$ git config --global user.email &#34;eddie@5xruby.tw&#34;
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git config --global user.name <span class="s2">&#34;YOUR_NAME&#34;</span>
+</span></span><span class="line"><span class="cl">$ git config --global user.email <span class="s2">&#34;YOUR_EMAIL&#34;</span>
 </span></span></code></pre></div><ul>
 <li>查看使用者訊息</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">$ git config --list
-</span></span><span class="line"><span class="ln">2</span><span class="cl">user.name=charlie
-</span></span><span class="line"><span class="ln">3</span><span class="cl">user.email=123gogo@gmail.com
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git config --list
+</span></span><span class="line"><span class="cl">user.name<span class="o">=</span>YOUR_NAME
+</span></span><span class="line"><span class="cl">user.email<span class="o">=</span>YOUR_EMAIL
 </span></span></code></pre></div><h2 id="git-使用">
     <a href="#git-%e4%bd%bf%e7%94%a8" class="header-anchor">#</a>
     Git 使用
 </h2><ul>
 <li>初始 Repository</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">$ git init
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git init
 </span></span></code></pre></div><ul>
 <li>觀察 Repository 檔案追蹤狀況</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl">$ git status
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git status
 </span></span></code></pre></div><ul>
 <li>將檔案加入暫存區(Staging Area)</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln">1</span><span class="cl"># 添加一份檔案
-</span></span><span class="line"><span class="ln">2</span><span class="cl">#$ git add welcome.html
-</span></span><span class="line"><span class="ln">3</span><span class="cl">
-</span></span><span class="line"><span class="ln">4</span><span class="cl"># 添加所有檔案
-</span></span><span class="line"><span class="ln">5</span><span class="cl">$ git add .
-</span></span><span class="line"><span class="ln">6</span><span class="cl">
-</span></span><span class="line"><span class="ln">7</span><span class="cl"># 再次檢查
-</span></span><span class="line"><span class="ln">8</span><span class="cl">$ git status
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 添加一份檔案</span>
+</span></span><span class="line"><span class="cl">$ git add welcome.html
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 添加所有檔案</span>
+</span></span><span class="line"><span class="cl">$ git add .
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 再次檢查</span>
+</span></span><span class="line"><span class="cl">$ git status
 </span></span></code></pre></div><ul>
 <li>查看暫存區資料</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git ls-files
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git ls-files
 </span></span></code></pre></div><ul>
 <li>git add 反悔 (清除暫存區檔案)</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git reset HEAD -- <span class="o">[</span>路徑<span class="o">]</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git reset HEAD -- <span class="o">[</span>路徑<span class="o">]</span>
 </span></span></code></pre></div><ul>
 <li>將暫存區(Staging Area)檔案提交到倉庫(Repository)</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git commit -m <span class="s2">&#34;提交訊息紀錄&#34;</span>              <span class="c1"># -m 表示直接在命令行中提供提交訊息，後面的 &#34;init commit&#34; 是具體的提交訊息內容。</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git commit -m <span class="s2">&#34;提交訊息紀錄&#34;</span>              <span class="c1"># -m 表示直接在命令行中提供提交訊息，後面的 &#34;init commit&#34; 是具體的提交訊息內容。</span>
 </span></span></code></pre></div><ul>
 <li>commit 反悔</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git rm -r --cached <span class="o">[</span>路徑<span class="o">]</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git rm -r --cached <span class="o">[</span>路徑<span class="o">]</span>
 </span></span></code></pre></div><h3 id="分支-branch">
     <a href="#%e5%88%86%e6%94%af-branch" class="header-anchor">#</a>
     分支 branch
 </h3><ul>
 <li>印出目前這個專案有哪些分支</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git branch
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git branch
 </span></span></code></pre></div><ul>
 <li>
 <p>新增+切換分支</p>
@@ -291,17 +291,17 @@
 <li>法 1
 <ul>
 <li>新增分支
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git branch &lt;分支名&gt;
-</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"># 執行結束過後，目前還是會在 master 的主要分支上。</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git branch &lt;分支名&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># 執行結束過後，目前還是會在 master 的主要分支上。</span>
 </span></span></code></pre></div><ul>
 <li>切換分支</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git checkout cat
-</span></span><span class="line"><span class="ln">2</span><span class="cl">Switched to branch <span class="s1">&#39;cat&#39;</span>
-</span></span><span class="line"><span class="ln">3</span><span class="cl">
-</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="c1"># 切換分支，若不存在分支就創建一個</span>
-</span></span><span class="line"><span class="ln">5</span><span class="cl">$ git checkout -b sister
-</span></span><span class="line"><span class="ln">6</span><span class="cl">Switched to a new branch <span class="s1">&#39;sister&#39;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git checkout cat
+</span></span><span class="line"><span class="cl">Switched to branch <span class="s1">&#39;cat&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 切換分支，若不存在分支就創建一個</span>
+</span></span><span class="line"><span class="cl">$ git checkout -b sister
+</span></span><span class="line"><span class="cl">Switched to a new branch <span class="s1">&#39;sister&#39;</span>
 </span></span></code></pre></div></li>
 </ul>
 </li>
@@ -309,7 +309,7 @@
 <ul>
 <li>新建分支並切換過去</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git checkout -b &lt;分支名&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git checkout -b &lt;分支名&gt;
 </span></span></code></pre></div></li>
 </ul>
 </li>
@@ -317,30 +317,30 @@
 <p>分支改名字</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git branch -m cat tiger  <span class="c1"># cat -&gt; tiger</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git branch -m cat tiger  <span class="c1"># cat -&gt; tiger</span>
 </span></span></code></pre></div><ul>
 <li>合併分支</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># 切回主要分支</span>
-</span></span><span class="line"><span class="ln">2</span><span class="cl">$ git checkout master
-</span></span><span class="line"><span class="ln">3</span><span class="cl">Switched to branch <span class="s1">&#39;master&#39;</span>
-</span></span><span class="line"><span class="ln">4</span><span class="cl">
-</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="c1"># 將分支 cat 合併到 master</span>
-</span></span><span class="line"><span class="ln">6</span><span class="cl">$ git merge cat
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 切回主要分支</span>
+</span></span><span class="line"><span class="cl">$ git checkout master
+</span></span><span class="line"><span class="cl">Switched to branch <span class="s1">&#39;master&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 將分支 cat 合併到 master</span>
+</span></span><span class="line"><span class="cl">$ git merge cat
 </span></span></code></pre></div><blockquote>
 <p>✨: 合併過的分支不會消失，要不要留著取決於自己~</p>
 </blockquote>
 <ul>
 <li>刪除分支</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git branch -d cat
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git branch -d cat
 </span></span></code></pre></div><h2 id="github-使用">
     <a href="#github-%e4%bd%bf%e7%94%a8" class="header-anchor">#</a>
     GitHub 使用
 </h2><h3 id="開始前可以先檢測目前與-github-的-ssh-連線狀況">
     <a href="#%e9%96%8b%e5%a7%8b%e5%89%8d%e5%8f%af%e4%bb%a5%e5%85%88%e6%aa%a2%e6%b8%ac%e7%9b%ae%e5%89%8d%e8%88%87-github-%e7%9a%84-ssh-%e9%80%a3%e7%b7%9a%e7%8b%80%e6%b3%81" class="header-anchor">#</a>
     開始前，可以先檢測目前與 Github 的 SSH 連線狀況
-</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ ssh -T git@github.com
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ssh -T git@github.com
 </span></span></code></pre></div><p>如果沒有設定過 SSH 連線，則會返回 Permission denied 的錯誤訊息，如下：</p>
 <blockquote>
 <p><a class="link" href="mailto:git@github.com" >git@github.com</a>: Permission denied (publickey).</p>
@@ -351,10 +351,10 @@
 </h3><ul>
 <li>產生金鑰</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ ssh-keygen -t rsa -b <span class="m">4096</span> -C <span class="s2">&#34;你的E-mail&#34;</span>
-</span></span><span class="line"><span class="ln">2</span><span class="cl">
-</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># 也可直接打</span>
-</span></span><span class="line"><span class="ln">4</span><span class="cl">ssh-keygen
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ssh-keygen -t rsa -b <span class="m">4096</span> -C <span class="s2">&#34;你的E-mail&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 也可直接打</span>
+</span></span><span class="line"><span class="cl">ssh-keygen
 </span></span></code></pre></div><p><div class="post-img-view">
         <a data-fancybox="gallery" href="https://hackmd.io/_uploads/rkJAWIz7a.png">
             <img src="https://hackmd.io/_uploads/rkJAWIz7a.png" loading="lazy" alt="image.png"  />
@@ -363,9 +363,9 @@
 <ul>
 <li>進入金鑰資料夾查看</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ <span class="nb">cd</span> /c/Users/<span class="o">[</span>userName<span class="o">]</span>/.ssh
-</span></span><span class="line"><span class="ln">2</span><span class="cl">
-</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># 通常會有  id_rsa、id_rsa.pub 兩個檔案</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">cd</span> /c/Users/<span class="o">[</span>userName<span class="o">]</span>/.ssh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 通常會有  id_rsa、id_rsa.pub 兩個檔案</span>
 </span></span></code></pre></div><ul>
 <li>到 GitHub 設置鑰匙</li>
 </ul>
@@ -375,11 +375,11 @@
 <li>點選 New SSH key</li>
 <li>回到 git 畫面，輸入指令查看id_rsa.pub裡面的資料，並將顯示的資料填回 github 的key欄位。其中 Title 的部分可寫可不寫</li>
 </ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$  cat id_rsa.pub
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$  cat id_rsa.pub
 </span></span></code></pre></div><ul>
 <li>查看 ssh 連線是否成功，中間要輸入密碼</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ ssh -T git@github.com
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ssh -T git@github.com
 </span></span></code></pre></div><h3 id="阻止特定檔案被-push-到-github-上">
     <a href="#%e9%98%bb%e6%ad%a2%e7%89%b9%e5%ae%9a%e6%aa%94%e6%a1%88%e8%a2%ab-push-%e5%88%b0-github-%e4%b8%8a" class="header-anchor">#</a>
     阻止特定檔案被 push 到 GitHub 上
@@ -388,17 +388,17 @@
 <li>內容放要被忽略的檔案類型
 例如，想要忽略所有 .log 檔案、<code>/model</code> 資料夾</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">*.log
-</span></span><span class="line"><span class="ln">2</span><span class="cl">/model
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">*.log
+</span></span><span class="line"><span class="cl">/model
 </span></span></code></pre></div><ul>
 <li>重新提交到暫存區</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># 清除本機 Git 的快取，就是將所有檔案移除 Git 的追蹤，但沒有刪除檔案</span>
-</span></span><span class="line"><span class="ln">2</span><span class="cl">$ git rm -r --cached .
-</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># 重新加入 Git 追蹤，這時就會重新套入 .gitignore 設定</span>
-</span></span><span class="line"><span class="ln">4</span><span class="cl">$ git add .
-</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="c1"># 重新 commit ，並會忽略設定在 .gitignore 的檔案</span>
-</span></span><span class="line"><span class="ln">6</span><span class="cl">$ git commit -m <span class="s1">&#39;update .gitignore&#39;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 清除本機 Git 的快取，就是將所有檔案移除 Git 的追蹤，但沒有刪除檔案</span>
+</span></span><span class="line"><span class="cl">$ git rm -r --cached .
+</span></span><span class="line"><span class="cl"><span class="c1"># 重新加入 Git 追蹤，這時就會重新套入 .gitignore 設定</span>
+</span></span><span class="line"><span class="cl">$ git add .
+</span></span><span class="line"><span class="cl"><span class="c1"># 重新 commit ，並會忽略設定在 .gitignore 的檔案</span>
+</span></span><span class="line"><span class="cl">$ git commit -m <span class="s1">&#39;update .gitignore&#39;</span>
 </span></span></code></pre></div><h3 id="push-到-github-上">
     <a href="#push-%e5%88%b0-github-%e4%b8%8a" class="header-anchor">#</a>
     Push 到 GitHub 上
@@ -427,7 +427,7 @@
 <p>設定遠端節點</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git remote add origin &lt;ssh 連線地址&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git remote add origin &lt;ssh 連線地址&gt;
 </span></span></code></pre></div><pre><code>- 說明：
 1. git remote 指令，顧名思義，主要是跟遠端有關的操作。
 2. add 指令是指要加入一個遠端的節點。
@@ -436,15 +436,15 @@
 <ul>
 <li>查詢遠端節點</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git remote -v
-</span></span><span class="line"><span class="ln">2</span><span class="cl">
-</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># 出現以下</span>
-</span></span><span class="line"><span class="ln">4</span><span class="cl">origin  git@github.com:charlieUWUuwu/practice-git2.git <span class="o">(</span>fetch<span class="o">)</span>
-</span></span><span class="line"><span class="ln">5</span><span class="cl">origin  git@github.com:charlieUWUuwu/practice-git2.git <span class="o">(</span>push<span class="o">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git remote -v
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 出現以下</span>
+</span></span><span class="line"><span class="cl">origin  git@github.com:charlieUWUuwu/practice-git2.git <span class="o">(</span>fetch<span class="o">)</span>
+</span></span><span class="line"><span class="cl">origin  git@github.com:charlieUWUuwu/practice-git2.git <span class="o">(</span>push<span class="o">)</span>
 </span></span></code></pre></div><ul>
 <li>查詢遠端節點分支</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git branch -r
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git branch -r
 </span></span></code></pre></div><ul>
 <li>更改遠端節點的位置
 <blockquote>
@@ -452,17 +452,17 @@
 </blockquote>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git remote set-url origin &lt;新網址&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git remote set-url origin &lt;新網址&gt;
 </span></span></code></pre></div><ul>
 <li>刪除遠端節點</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># $ git remote rm origin</span>
-</span></span><span class="line"><span class="ln">2</span><span class="cl">$ git remote rm &lt;遠端節點名&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># $ git remote rm origin</span>
+</span></span><span class="line"><span class="cl">$ git remote rm &lt;遠端節點名&gt;
 </span></span></code></pre></div><ul>
 <li>資料推到github上</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">#$ git push -u origin master</span>
-</span></span><span class="line"><span class="ln">2</span><span class="cl">$ git push -u &lt;遠端節點名&gt; &lt;branch名&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#$ git push -u origin master</span>
+</span></span><span class="line"><span class="cl">$ git push -u &lt;遠端節點名&gt; &lt;branch名&gt;
 </span></span></code></pre></div><blockquote>
 <p>✨: 檔案不能超過 100M，否則後續 push 會一直失敗</p>
 <ul>
@@ -483,16 +483,16 @@
 git pull = git fetch + git merge
 上線抓東西下來（Fetch），並且更新本機的進度（Merge）。</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git pull
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git pull
 </span></span></code></pre></div><h3 id="clone--第一次使用專案時抓取遠端檔案">
     <a href="#clone--%e7%ac%ac%e4%b8%80%e6%ac%a1%e4%bd%bf%e7%94%a8%e5%b0%88%e6%a1%88%e6%99%82%e6%8a%93%e5%8f%96%e9%81%a0%e7%ab%af%e6%aa%94%e6%a1%88" class="header-anchor">#</a>
     Clone : 第一次使用專案時，抓取遠端檔案
 </h3><p>Clone 指令會把整個專案的內容複製一份到你的電腦裡，這裡指的「內容」不是只有檔案，而是指所有整個專案的歷史紀錄、分支、標籤等內容都會複製一份下來。</p>
 <p>:bulb: 以下使用 [SSH] 的連結</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git clone git@github.com:kaochenlong/dummy-git.git
-</span></span><span class="line"><span class="ln">2</span><span class="cl">
-</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># 若要 Clone 下來之後存成不同的目錄名稱</span>
-</span></span><span class="line"><span class="ln">4</span><span class="cl">$ git clone git@github.com:kaochenlong/dummy-git.git hello_kitty
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git clone git@github.com:kaochenlong/dummy-git.git
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 若要 Clone 下來之後存成不同的目錄名稱</span>
+</span></span><span class="line"><span class="cl">$ git clone git@github.com:kaochenlong/dummy-git.git hello_kitty
 </span></span></code></pre></div><h3 id="pull-requestpr-與其它開發者的互動">
     <a href="#pull-requestpr-%e8%88%87%e5%85%b6%e5%ae%83%e9%96%8b%e7%99%bc%e8%80%85%e7%9a%84%e4%ba%92%e5%8b%95" class="header-anchor">#</a>
     Pull Request（PR）: 與其它開發者的互動
@@ -511,25 +511,25 @@ Pull Request : 修改完東西後，發通知給原作者問他要不要 pull �
 </h3><p>每次增修內容前請依循下列流程進行：</p>
 <ol>
 <li>Pull origin/develop 最新版本
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git pull origin develop
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git pull origin develop
 </span></span></code></pre></div></li>
 <li>在 local 新增 branch 並切換
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git checkout -b &lt;NEW_BRANCH_NAME&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git checkout -b &lt;NEW_BRANCH_NAME&gt;
 </span></span></code></pre></div></li>
 <li>編輯完成後進行 commit
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git add .
-</span></span><span class="line"><span class="ln">2</span><span class="cl">$ git commit -m <span class="s2">&#34;COMMIT_MSG&#34;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git add .
+</span></span><span class="line"><span class="cl">$ git commit -m <span class="s2">&#34;COMMIT_MSG&#34;</span>
 </span></span></code></pre></div></li>
 <li>回到 develop 再次獲取 origin/develop 的最新版本、與自己的修正合併並修正出現的 conflict
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git checkout develop
-</span></span><span class="line"><span class="ln">2</span><span class="cl">$ git pull
-</span></span><span class="line"><span class="ln">3</span><span class="cl">$ git checkout &lt;NEW_BRANCH_NAME&gt;
-</span></span><span class="line"><span class="ln">4</span><span class="cl">$ git rebase develop
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git checkout develop
+</span></span><span class="line"><span class="cl">$ git pull
+</span></span><span class="line"><span class="cl">$ git checkout &lt;NEW_BRANCH_NAME&gt;
+</span></span><span class="line"><span class="cl">$ git rebase develop
 </span></span></code></pre></div></li>
 <li>將新 branch 的修正與 develop 合併並 push 到 Github
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">$ git checkout develop
-</span></span><span class="line"><span class="ln">2</span><span class="cl">$ git merge &lt;NEW_BRANCH_NAME&gt;
-</span></span><span class="line"><span class="ln">3</span><span class="cl">$ git push
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git checkout develop
+</span></span><span class="line"><span class="cl">$ git merge &lt;NEW_BRANCH_NAME&gt;
+</span></span><span class="line"><span class="cl">$ git push
 </span></span></code></pre></div></li>
 </ol>
 <h3 id="contributing-guidelines">
@@ -588,7 +588,7 @@ Pull Request : 修改完東西後，發通知給原作者問他要不要 pull �
 
 
         <span>
-            Last updated on Jul 06, 2024 12:43 UTC
+            Last updated on Jul 11, 2024 15:37 UTC
         </span>
     </section></footer>
 
