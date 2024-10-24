@@ -10,7 +10,7 @@
 <meta property='og:description' content="docker 常用基礎指令">
 <meta property='og:url' content='https://charlieUWUuwu.github.io/p/docker-%E5%9F%BA%E7%A4%8E%E6%8C%87%E4%BB%A4/'>
 <meta property='og:site_name' content='Charlie&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='' /><meta property='article:tag' content='' /><meta property='article:published_time' content='2024-10-24T16:39:51&#43;08:00'/><meta property='article:modified_time' content='2024-10-24T10:10:48&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='' /><meta property='article:tag' content='' /><meta property='article:published_time' content='2024-10-24T16:39:51&#43;08:00'/><meta property='article:modified_time' content='2024-10-24T17:03:44&#43;00:00'/>
 <meta name="twitter:title" content="Docker 基礎指令">
 <meta name="twitter:description" content="docker 常用基礎指令">
     <link rel="shortcut icon" href="/img/favicon.ico" />
@@ -267,6 +267,11 @@
     <a href="#others" class="header-anchor">#</a>
     Others
 </h2><ul>
+<li><code>--format</code>: A common option for formatting the output of commands using &ldquo;Go templates&rdquo;
+<ul>
+<li>例如<code>docker container inspect --format &quot;{{ .NetworkSettings.IPAddress }}&quot; webhost</code>，注意 Windows 的話要使用雙引號而非單引號</li>
+</ul>
+</li>
 <li><code>ps aux</code>: show me all running processes</li>
 <li><code>ps aux | grep mongo</code>: 過濾出叫做 mongo 的 process</li>
 <li>Apline Linux : 只有 5MB 的 Linux 的另一個發行版</li>
@@ -292,7 +297,7 @@
 
 
         <span>
-            Last updated on Oct 24, 2024 10:10 UTC
+            Last updated on Oct 24, 2024 17:03 UTC
         </span>
     </section></footer>
 
@@ -332,6 +337,19 @@
     <h2 class="section-title">Related content</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/docker-networks/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Docker Networks</h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="">

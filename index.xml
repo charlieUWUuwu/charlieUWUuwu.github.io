@@ -7,7 +7,123 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>Charlie</copyright>
-        <lastBuildDate>Thu, 24 Oct 2024 16:39:51 +0800</lastBuildDate><atom:link href="https://charlieUWUuwu.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 24 Oct 2024 18:36:55 +0800</lastBuildDate><atom:link href="https://charlieUWUuwu.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Docker Networks</title>
+        <link>https://charlieUWUuwu.github.io/p/docker-networks/</link>
+        <pubDate>Thu, 24 Oct 2024 18:36:55 +0800</pubDate>
+        
+        <guid>https://charlieUWUuwu.github.io/p/docker-networks/</guid>
+        <description>&lt;h2 id=&#34;docker-networks-defaults&#34;&gt;
+    &lt;a href=&#34;#docker-networks-defaults&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Docker Networks Defaults
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;每個 container 連接到 private virtual network &amp;ldquo;bridge(or docker0)&amp;rdquo;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;每個虛擬網路實際上都通過 NAT firewall 路由出去到 Internet&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在虛擬網路的這些 containers 其實可以不需要用 -p 暴露給 Internet 也可以互相溝通&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可以為他們搭建一個網路&lt;/li&gt;
+&lt;li&gt;也可以跳過現成的虛擬網路配置 (使用&lt;code&gt;--net=host&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;docker container inspect --format &amp;quot;{{ .NetworkSettings.IPAddress }}&amp;quot; webhost&lt;/code&gt;: 輸出容器 webhost 的 ip&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;三種 driver 類型&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;--network bridge&lt;/code&gt;: Default Docker virtual netowrk, which is NAT&amp;rsquo;ed behind the Host IP&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;讓在同樣 host 的容器可以互相溝通&lt;/li&gt;
+&lt;li&gt;預設是沒有 DNS 的! 可以用&lt;code&gt;--link&lt;/code&gt;手動連接&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;--network host&lt;/code&gt;: It gains performance by skipping virtual networks but &lt;strong&gt;sacrifices security of container model&lt;/strong&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;也就是直接將容器連接到主機接口，可以提高高吞吐量網路的性能，但喪失了容器化的安全邊界&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;--network none&lt;/code&gt;: removes eth0 and only leaves you with localhost interface in container&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;相當於電腦上有個接口，但沒有連接到任何東西，我們可以自己創建連接&lt;/li&gt;
+&lt;li&gt;其實在創建 container 時直接指定自建的網路就好&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;一個 container 可以接到多個網路&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;cli-management&#34;&gt;
+    &lt;a href=&#34;#cli-management&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    CLI Management
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;docker network ls&lt;/code&gt; : Show networks&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker network inspect&lt;/code&gt;: Inspect a network
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;docker network inspect bridge&lt;/code&gt;: 看 bridge 網路的內容(可以看到使用該網路的 container)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker network create --driver&lt;/code&gt;: Create a network&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker network connect &amp;lt;network_ID&amp;gt; &amp;lt;container_ID&amp;gt;&lt;/code&gt;: Attach a network to container
+&lt;ul&gt;
+&lt;li&gt;這樣現有的容器可以不用停止運行，就接上指定網路&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker netowrk disconnect &amp;lt;container_ID&amp;gt; &amp;lt;network_ID&amp;gt;&lt;/code&gt;: Detach a network from container&lt;/li&gt;
+&lt;li&gt;network driver : Built-in or 3rd party extensions that give you virtual network features
+&lt;ul&gt;
+&lt;li&gt;是個簡單的驅動程式，可以在本地創建一個虛擬網路&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;example&#34;&gt;
+    &lt;a href=&#34;#example&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Example
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;在建立時就連接網路
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;docker container run -d --name new_nginx --network my_app_net nginx&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;接著執行 inspect network my_app_net 就可以看到有 new_nginx 了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;將現有的容器接上網路
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;docker network connect &amp;lt;network_id&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;dns&#34;&gt;
+    &lt;a href=&#34;#dns&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    DNS
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Docker DNS : Docker deamon 有內建的 DNS server，容器預設是使用這個&lt;/li&gt;
+&lt;li&gt;bridge 預設沒有 DNS，不過可以用&lt;code&gt;--link&lt;/code&gt;手動連接
+&lt;ul&gt;
+&lt;li&gt;但還是建議直接建一個新網路會更容易，或在未來使用 docker compose&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;重要概念
+&lt;ul&gt;
+&lt;li&gt;Containers 不應該透過 IP 來做 inter-communication&lt;/li&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>Docker 基礎指令</title>
         <link>https://charlieUWUuwu.github.io/p/docker-%E5%9F%BA%E7%A4%8E%E6%8C%87%E4%BB%A4/</link>
         <pubDate>Thu, 24 Oct 2024 16:39:51 +0800</pubDate>
@@ -83,6 +199,11 @@
     &lt;a href=&#34;#others&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     Others
 &lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--format&lt;/code&gt;: A common option for formatting the output of commands using &amp;ldquo;Go templates&amp;rdquo;
+&lt;ul&gt;
+&lt;li&gt;例如&lt;code&gt;docker container inspect --format &amp;quot;{{ .NetworkSettings.IPAddress }}&amp;quot; webhost&lt;/code&gt;，注意 Windows 的話要使用雙引號而非單引號&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;ps aux&lt;/code&gt;: show me all running processes&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;ps aux | grep mongo&lt;/code&gt;: 過濾出叫做 mongo 的 process&lt;/li&gt;
 &lt;li&gt;Apline Linux : 只有 5MB 的 Linux 的另一個發行版&lt;/li&gt;

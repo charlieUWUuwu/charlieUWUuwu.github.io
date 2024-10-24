@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="React 專案建立、啟動等">
-<title>React 基礎指令</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="docker 的網路">
+<title>Docker Networks</title>
 
-<link rel='canonical' href='https://charlieUWUuwu.github.io/p/react-%E5%9F%BA%E7%A4%8E%E6%8C%87%E4%BB%A4/'>
+<link rel='canonical' href='https://charlieUWUuwu.github.io/p/docker-networks/'>
 
-<link rel="stylesheet" href="/scss/style.min.ce36a5b9c8333d56c5ddf64132d7e1f73d80501084e6b2408f65c1894936edb6.css"><meta property='og:title' content="React 基礎指令">
-<meta property='og:description' content="React 專案建立、啟動等">
-<meta property='og:url' content='https://charlieUWUuwu.github.io/p/react-%E5%9F%BA%E7%A4%8E%E6%8C%87%E4%BB%A4/'>
+<link rel="stylesheet" href="/scss/style.min.ce36a5b9c8333d56c5ddf64132d7e1f73d80501084e6b2408f65c1894936edb6.css"><meta property='og:title' content="Docker Networks">
+<meta property='og:description' content="docker 的網路">
+<meta property='og:url' content='https://charlieUWUuwu.github.io/p/docker-networks/'>
 <meta property='og:site_name' content='Charlie&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='React' /><meta property='article:published_time' content='2024-07-06T20:33:33&#43;08:00'/><meta property='article:modified_time' content='2024-10-24T17:03:44&#43;00:00'/>
-<meta name="twitter:title" content="React 基礎指令">
-<meta name="twitter:description" content="React 專案建立、啟動等">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='' /><meta property='article:tag' content='' /><meta property='article:published_time' content='2024-10-24T18:36:55&#43;08:00'/><meta property='article:modified_time' content='2024-10-24T17:03:44&#43;00:00'/>
+<meta name="twitter:title" content="Docker Networks">
+<meta name="twitter:description" content="docker 的網路">
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
 
@@ -110,22 +110,10 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#建立本地項目">建立本地項目</a>
-      <ol>
-        <li><a href="#使用-vite">使用 Vite</a></li>
-        <li><a href="#使用-create-react-app">使用 create-react-app</a></li>
-      </ol>
-    </li>
-    <li><a href="#進入專案資料夾">進入專案資料夾</a></li>
-    <li><a href="#安裝額外包如react">安裝額外包(如React)</a></li>
-    <li><a href="#啟動開發預覽-server">啟動開發預覽 server</a></li>
-    <li><a href="#udemy-教材啟用起手式">Udemy 教材啟用起手式</a></li>
-    <li><a href="#使用-redux">使用 redux</a>
-      <ol>
-        <li><a href="#安裝工具箱">安裝工具箱</a></li>
-        <li><a href="#安裝開發工具">安裝開發工具</a></li>
-      </ol>
-    </li>
+    <li><a href="#docker-networks-defaults">Docker Networks Defaults</a></li>
+    <li><a href="#cli-management">CLI Management</a></li>
+    <li><a href="#example">Example</a></li>
+    <li><a href="#dns">DNS</a></li>
   </ol>
 </nav>
         </div>
@@ -144,8 +132,8 @@
     
     <header class="article-category">
         
-            <a href="/categories/frontend/" style="background-color: #E67951; color: #fff;">
-                Frontend
+            <a href="/categories/docker/" style="background-color: #1e90ff; color: #fff;">
+                Docker
             </a>
         
     </header>
@@ -153,12 +141,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/react-%E5%9F%BA%E7%A4%8E%E6%8C%87%E4%BB%A4/">React 基礎指令</a>
+            <a href="/p/docker-networks/">Docker Networks</a>
         </h2>
     
         
         <h3 class="article-subtitle">
-            React 專案建立、啟動等
+            docker 的網路
         </h3>
         
     </div>
@@ -179,7 +167,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Jul 06, 2024</time>
+                <time class="article-time--published">Oct 24, 2024</time>
             </div>
         
 
@@ -209,61 +197,121 @@
     <section class="article-content">
     
     
-    <h1 id="操作指令">
-    <a href="#%e6%93%8d%e4%bd%9c%e6%8c%87%e4%bb%a4" class="header-anchor">#</a>
-    操作指令
-</h1><h2 id="建立本地項目">
-    <a href="#%e5%bb%ba%e7%ab%8b%e6%9c%ac%e5%9c%b0%e9%a0%85%e7%9b%ae" class="header-anchor">#</a>
-    建立本地項目
-</h2><h3 id="使用-vite">
-    <a href="#%e4%bd%bf%e7%94%a8-vite" class="header-anchor">#</a>
-    使用 Vite
-</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm create vite@latest my-project1
-</span></span></code></pre></div><p>或是</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm create vite
-</span></span></code></pre></div><h3 id="使用-create-react-app">
-    <a href="#%e4%bd%bf%e7%94%a8-create-react-app" class="header-anchor">#</a>
-    使用 create-react-app
-</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npx create-react-app 
-</span></span></code></pre></div><h2 id="進入專案資料夾">
-    <a href="#%e9%80%b2%e5%85%a5%e5%b0%88%e6%a1%88%e8%b3%87%e6%96%99%e5%a4%be" class="header-anchor">#</a>
-    進入專案資料夾
-</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cd my-project1
-</span></span></code></pre></div><h2 id="安裝額外包如react">
-    <a href="#%e5%ae%89%e8%a3%9d%e9%a1%8d%e5%a4%96%e5%8c%85%e5%a6%82react" class="header-anchor">#</a>
-    安裝額外包(如React)
-</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install
-</span></span></code></pre></div><h2 id="啟動開發預覽-server">
-    <a href="#%e5%95%9f%e5%8b%95%e9%96%8b%e7%99%bc%e9%a0%90%e8%a6%bd-server" class="header-anchor">#</a>
-    啟動開發預覽 server
-</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm run dev   # vite
-</span></span><span class="line"><span class="cl">npm start     # create-react-app
-</span></span></code></pre></div><h2 id="udemy-教材啟用起手式">
-    <a href="#udemy-%e6%95%99%e6%9d%90%e5%95%9f%e7%94%a8%e8%b5%b7%e6%89%8b%e5%bc%8f" class="header-anchor">#</a>
-    Udemy 教材啟用起手式
-</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">npm install
-</span></span><span class="line"><span class="cl">npm run dev
-</span></span></code></pre></div><h2 id="使用-redux">
-    <a href="#%e4%bd%bf%e7%94%a8-redux" class="header-anchor">#</a>
-    使用 redux
-</h2><h3 id="安裝工具箱">
-    <a href="#%e5%ae%89%e8%a3%9d%e5%b7%a5%e5%85%b7%e7%ae%b1" class="header-anchor">#</a>
-    安裝工具箱
-</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">npm</span> <span class="n">install</span> <span class="n">react</span><span class="o">-</span><span class="n">redux</span>
-</span></span><span class="line"><span class="cl"><span class="n">npm</span> <span class="n">install</span> <span class="err">@</span><span class="n">reduxjs</span><span class="o">/</span><span class="n">toolkit</span>
-</span></span></code></pre></div><h3 id="安裝開發工具">
-    <a href="#%e5%ae%89%e8%a3%9d%e9%96%8b%e7%99%bc%e5%b7%a5%e5%85%b7" class="header-anchor">#</a>
-    安裝開發工具
-</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">Google</span> <span class="err">搜尋</span> <span class="n">Redux</span> <span class="n">devtool</span>
-</span></span></code></pre></div>
+    <h2 id="docker-networks-defaults">
+    <a href="#docker-networks-defaults" class="header-anchor">#</a>
+    Docker Networks Defaults
+</h2><ul>
+<li>
+<p>每個 container 連接到 private virtual network &ldquo;bridge(or docker0)&rdquo;</p>
+</li>
+<li>
+<p>每個虛擬網路實際上都通過 NAT firewall 路由出去到 Internet</p>
+</li>
+<li>
+<p>在虛擬網路的這些 containers 其實可以不需要用 -p 暴露給 Internet 也可以互相溝通</p>
+<ul>
+<li>可以為他們搭建一個網路</li>
+<li>也可以跳過現成的虛擬網路配置 (使用<code>--net=host</code>)</li>
+</ul>
+</li>
+<li>
+<p><code>docker container inspect --format &quot;{{ .NetworkSettings.IPAddress }}&quot; webhost</code>: 輸出容器 webhost 的 ip</p>
+</li>
+<li>
+<p>三種 driver 類型</p>
+<ul>
+<li>
+<p><code>--network bridge</code>: Default Docker virtual netowrk, which is NAT&rsquo;ed behind the Host IP</p>
+<ul>
+<li>讓在同樣 host 的容器可以互相溝通</li>
+<li>預設是沒有 DNS 的! 可以用<code>--link</code>手動連接</li>
+</ul>
+</li>
+<li>
+<p><code>--network host</code>: It gains performance by skipping virtual networks but <strong>sacrifices security of container model</strong>.</p>
+<ul>
+<li>也就是直接將容器連接到主機接口，可以提高高吞吐量網路的性能，但喪失了容器化的安全邊界</li>
+</ul>
+</li>
+<li>
+<p><code>--network none</code>: removes eth0 and only leaves you with localhost interface in container</p>
+<ul>
+<li>相當於電腦上有個接口，但沒有連接到任何東西，我們可以自己創建連接</li>
+<li>其實在創建 container 時直接指定自建的網路就好</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>一個 container 可以接到多個網路</p>
+</li>
+</ul>
+<h2 id="cli-management">
+    <a href="#cli-management" class="header-anchor">#</a>
+    CLI Management
+</h2><ul>
+<li><code>docker network ls</code> : Show networks</li>
+<li><code>docker network inspect</code>: Inspect a network
+<ul>
+<li><code>docker network inspect bridge</code>: 看 bridge 網路的內容(可以看到使用該網路的 container)</li>
+</ul>
+</li>
+<li><code>docker network create --driver</code>: Create a network</li>
+<li><code>docker network connect &lt;network_ID&gt; &lt;container_ID&gt;</code>: Attach a network to container
+<ul>
+<li>這樣現有的容器可以不用停止運行，就接上指定網路</li>
+</ul>
+</li>
+<li><code>docker netowrk disconnect &lt;container_ID&gt; &lt;network_ID&gt;</code>: Detach a network from container</li>
+<li>network driver : Built-in or 3rd party extensions that give you virtual network features
+<ul>
+<li>是個簡單的驅動程式，可以在本地創建一個虛擬網路</li>
+</ul>
+</li>
+</ul>
+<h2 id="example">
+    <a href="#example" class="header-anchor">#</a>
+    Example
+</h2><ul>
+<li>在建立時就連接網路
+<ul>
+<li><code>docker container run -d --name new_nginx --network my_app_net nginx</code>
+<ul>
+<li>接著執行 inspect network my_app_net 就可以看到有 new_nginx 了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>將現有的容器接上網路
+<ul>
+<li><code>docker network connect &lt;network_id&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="dns">
+    <a href="#dns" class="header-anchor">#</a>
+    DNS
+</h2><ul>
+<li>Docker DNS : Docker deamon 有內建的 DNS server，容器預設是使用這個</li>
+<li>bridge 預設沒有 DNS，不過可以用<code>--link</code>手動連接
+<ul>
+<li>但還是建議直接建一個新網路會更容易，或在未來使用 docker compose</li>
+</ul>
+</li>
+<li>重要概念
+<ul>
+<li>Containers 不應該透過 IP 來做 inter-communication</li>
+<li></li>
+</ul>
+</li>
+</ul>
+
 </section>
 
 
     <footer class="article-footer">
     
     <section class="article-tags">
-        
-            <a href="/tags/react/">React</a>
         
     </section>
 
@@ -313,6 +361,41 @@
     
 
     
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/docker-%E5%9F%BA%E7%A4%8E%E6%8C%87%E4%BB%A4/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Docker 基礎指令</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/github-%E5%9F%BA%E7%A4%8E%E6%8C%87%E4%BB%A4/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Github 基礎指令</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
 
      
     
