@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Docker on Charlie&#39;s Blog</title>
+        <link>https://charlieUWUuwu.github.io/categories/docker/</link>
+        <description>Recent content in Docker on Charlie&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>Charlie</copyright><atom:link href="https://charlieUWUuwu.github.io/categories/docker/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Docker 基礎指令</title>
+        <link>https://charlieUWUuwu.github.io/p/docker-%E5%9F%BA%E7%A4%8E%E6%8C%87%E4%BB%A4/</link>
+        <pubDate>Thu, 24 Oct 2024 16:39:51 +0800</pubDate>
+        
+        <guid>https://charlieUWUuwu.github.io/p/docker-%E5%9F%BA%E7%A4%8E%E6%8C%87%E4%BB%A4/</guid>
+        <description>&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ps aux&lt;/code&gt;: show me all running processes&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ps aux | grep mongo&lt;/code&gt;: 過濾出叫做 mongo 的 process&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;startrun-a-container&#34;&gt;
+    &lt;a href=&#34;#startrun-a-container&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Start/Run a Container
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;docker pull &amp;lt;image_name&amp;gt;&lt;/code&gt;: pull an image from docker hub by default&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;doker run --name mymongo -d mongo&lt;/code&gt;: 執行一個新的 container (每次都會建置新的)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;docker start mongo&lt;/code&gt; : 啟動名為 mongo 的 container&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;docker stop mongo&lt;/code&gt;: stop&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;--env(or -e)&lt;/code&gt;: 傳遞環境參數到 container 中。例如運行&lt;code&gt;mysql&lt;/code&gt;時常用&lt;code&gt;MYSQL_RANDOM_ROOT_PASSWORD=yes&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可在第一次啟動時使用&lt;code&gt;docker container logs&lt;/code&gt;指令到日誌中查找隨機密碼是什麼。&lt;/li&gt;
+&lt;li&gt;在 docker hub 上會看到 mysql 有說密碼要指定三個選項的其中一個。&lt;/li&gt;
+&lt;li&gt;官方 mysql image 已經移除 &lt;code&gt;ps&lt;/code&gt;跟&lt;code&gt;apt-get&lt;/code&gt;指令。可以改用 MariaDB&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;whats-going-on-in-conatainers&#34;&gt;
+    &lt;a href=&#34;#whats-going-on-in-conatainers&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    What&amp;rsquo;s Going On In Conatainers
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;docker container top &amp;lt;container_ID&amp;gt;&lt;/code&gt;: list running processes in specific container&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;doker run --name mymongo -d mongo&lt;/code&gt;: 執行一個新的 container (每次都會建置新的)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker container inspect&lt;/code&gt; : show metadata about the container(startup config, columes, networking, etc)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker container stats&lt;/code&gt; : show live performance data for all containers&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;getting-a-shell-inside-containers&#34;&gt;
+    &lt;a href=&#34;#getting-a-shell-inside-containers&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Getting a Shell Inside Containers
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;docker container run -it&lt;/code&gt;: start new container interactively&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;docker container exec -it&lt;/code&gt; : run &lt;strong&gt;additional command&lt;/strong&gt; in &lt;strong&gt;existing container&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;exec 是在現有的運行容器上運行一個附加的 process，所以不會影響 deamon program 的 root process&lt;/li&gt;
+&lt;li&gt;exec 適合用在&lt;code&gt;故障排除, 稍微更改內容&lt;/code&gt;的情景，可以跳轉到 container 裡面&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;-t, --tty&lt;/code&gt;: pseudo-tty, similates a real terminal, like what SSH does&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;-i&lt;/code&gt;: interactive. Keep session open to receive terminal input&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;bash/sh&lt;/code&gt;: if run with -it, it will give you a terminal inside the running container&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用法 : &lt;code&gt;docker container run -it --name proxy nginx bash&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;sh 更加輕巧，像是 Apline linux 只有 sh 而沒有 bash&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;others&#34;&gt;
+    &lt;a href=&#34;#others&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Others
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ps aux&lt;/code&gt;: show me all running processes&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ps aux | grep mongo&lt;/code&gt;: 過濾出叫做 mongo 的 process&lt;/li&gt;
+&lt;li&gt;Apline Linux : 只有 5MB 的 Linux 的另一個發行版&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

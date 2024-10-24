@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Javascript on Charlie&#39;s Blog</title>
+        <link>http://localhost:1313/tags/javascript/</link>
+        <description>Recent content in Javascript on Charlie&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>Charlie</copyright>
+        <lastBuildDate>Tue, 30 Jul 2024 21:31:55 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/javascript/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Promise 與 fetch()</title>
+        <link>http://localhost:1313/p/promise-%E8%88%87-fetch/</link>
+        <pubDate>Tue, 30 Jul 2024 21:31:55 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/promise-%E8%88%87-fetch/</guid>
+        <description>&lt;h1 id=&#34;promise-介紹&#34;&gt;
+    &lt;a href=&#34;#promise-%e4%bb%8b%e7%b4%b9&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    Promise 介紹
+&lt;/h1&gt;&lt;p&gt;在 JavaScript 中，&lt;code&gt;Promise&lt;/code&gt; 是用來處理異步操作的一種方式。它代表了一個尚未完成但將在未來某個時間點完成（或失敗）的操作。&lt;code&gt;Promise&lt;/code&gt; 可以處理如網路請求、計時器等需要時間才能完成的操作。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Promise&lt;/code&gt; 有三種狀態：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Pending&lt;/code&gt;（待定）：初始狀態，操作尚未完成。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Fulfilled&lt;/code&gt;（已完成）：操作成功完成，並返回一個值。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Rejected&lt;/code&gt;（已拒絕）：操作失敗，並返回一個原因。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;react-中的-fetch&#34;&gt;
+    &lt;a href=&#34;#react-%e4%b8%ad%e7%9a%84-fetch&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    React 中的 fetch()
+&lt;/h2&gt;&lt;p&gt;在 React 中可能會經常使用 &lt;code&gt;Promise&lt;/code&gt; 來處理從 API 獲取數據的操作。例如，使用 &lt;code&gt;fetch&lt;/code&gt; 函數來從一個 API 獲取數據：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;fetch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;https://api.example.com/data&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;then&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;response&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ok&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;k&#34;&gt;throw&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;Error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Network response was not ok&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;response&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;json&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 將 response 轉換為 JSON 格式
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;then&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;data&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 這裡處理獲取到的數據
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;error&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Error:&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 這裡處理任何可能的錯誤
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;fetch&lt;/code&gt; 函數會返回一個 &lt;code&gt;Promise&lt;/code&gt;。這個 &lt;code&gt;Promise&lt;/code&gt; 在請求完成時會被解析（resolved），並返回一個 &lt;code&gt;Response&lt;/code&gt; 對象。如果請求失敗，&lt;code&gt;Promise&lt;/code&gt; 會被拒絕（rejected），並返回一個錯誤。&lt;/p&gt;
+&lt;p&gt;在這個例子中：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;fetch&lt;/code&gt; 發出一個 HTTP 請求，並返回一個 &lt;code&gt;Promise&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;如果請求成功，第一個 &lt;code&gt;then&lt;/code&gt; 會接收 &lt;code&gt;Response&lt;/code&gt; 對象。&lt;/li&gt;
+&lt;li&gt;通過 &lt;code&gt;response.json()&lt;/code&gt; 將 &lt;code&gt;Response&lt;/code&gt; 對象轉換為 JSON 格式，此方法也會返回一個 &lt;code&gt;Promise&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;第二個 &lt;code&gt;then&lt;/code&gt; 會接收轉換後的 JSON 數據並進行處理。&lt;/li&gt;
+&lt;li&gt;如果在請求過程中出現任何錯誤（如網路錯誤或 JSON 解析錯誤），&lt;code&gt;catch&lt;/code&gt; 會捕獲並處理。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;then&#34;&gt;
+    &lt;a href=&#34;#then&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
+    .then()
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;.then()&lt;/code&gt; 是 &lt;code&gt;Promise&lt;/code&gt; 物件的方法之一，用來處理 &lt;code&gt;Promise&lt;/code&gt; 成功解析後的結果。&lt;/p&gt;
+&lt;p&gt;當 &lt;code&gt;Promise&lt;/code&gt; 進入 &lt;code&gt;fulfilled&lt;/code&gt; 狀態時，&lt;code&gt;.then()&lt;/code&gt; 方法會執行你提供的回調函數，並將解析後的值作為參數傳遞給該回調函數。&lt;/p&gt;
+&lt;p&gt;可以連續使用多個 &lt;code&gt;.then()&lt;/code&gt; 來處理一系列的異步操作。每個 &lt;code&gt;.then()&lt;/code&gt; 都會返回一個新的 &lt;code&gt;Promise&lt;/code&gt;，允許你在前一個 &lt;code&gt;.then()&lt;/code&gt; 完成後進行進一步的處理。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
