@@ -39,7 +39,7 @@
 &lt;p&gt;&lt;code&gt;--network bridge&lt;/code&gt;: Default Docker virtual netowrk, which is NAT&amp;rsquo;ed behind the Host IP&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;讓在同樣 host 的容器可以互相溝通&lt;/li&gt;
-&lt;li&gt;預設是沒有 DNS 的! 可以用&lt;code&gt;--link&lt;/code&gt;手動連接&lt;/li&gt;
+&lt;li&gt;可以用&lt;code&gt;--link&lt;/code&gt;手動連接&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -71,7 +71,7 @@
 &lt;li&gt;&lt;code&gt;docker network inspect bridge&lt;/code&gt;: 看 bridge 網路的內容(可以看到使用該網路的 container)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;code&gt;docker network create --driver&lt;/code&gt;: Create a network&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker network create &amp;lt;名字&amp;gt;&lt;/code&gt;: Create a network&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;docker network connect &amp;lt;network_ID&amp;gt; &amp;lt;container_ID&amp;gt;&lt;/code&gt;: Attach a network to container
 &lt;ul&gt;
 &lt;li&gt;這樣現有的容器可以不用停止運行，就接上指定網路&lt;/li&gt;

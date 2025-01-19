@@ -10,7 +10,7 @@
 <meta property='og:description' content="docker 的網路">
 <meta property='og:url' content='https://charlieUWUuwu.github.io/p/docker-networks/'>
 <meta property='og:site_name' content='Charlie&#39;s Blog'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='' /><meta property='article:tag' content='' /><meta property='article:published_time' content='2024-10-24T18:36:55&#43;08:00'/><meta property='article:modified_time' content='2024-10-24T17:03:44&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='' /><meta property='article:tag' content='' /><meta property='article:published_time' content='2024-10-24T18:36:55&#43;08:00'/><meta property='article:modified_time' content='2025-01-19T09:42:11&#43;00:00'/>
 <meta name="twitter:title" content="Docker Networks">
 <meta name="twitter:description" content="docker 的網路">
     <link rel="shortcut icon" href="/img/favicon.ico" />
@@ -224,7 +224,7 @@
 <p><code>--network bridge</code>: Default Docker virtual netowrk, which is NAT&rsquo;ed behind the Host IP</p>
 <ul>
 <li>讓在同樣 host 的容器可以互相溝通</li>
-<li>預設是沒有 DNS 的! 可以用<code>--link</code>手動連接</li>
+<li>可以用<code>--link</code>手動連接</li>
 </ul>
 </li>
 <li>
@@ -256,7 +256,7 @@
 <li><code>docker network inspect bridge</code>: 看 bridge 網路的內容(可以看到使用該網路的 container)</li>
 </ul>
 </li>
-<li><code>docker network create --driver</code>: Create a network</li>
+<li><code>docker network create &lt;名字&gt;</code>: Create a network</li>
 <li><code>docker network connect &lt;network_ID&gt; &lt;container_ID&gt;</code>: Attach a network to container
 <ul>
 <li>這樣現有的容器可以不用停止運行，就接上指定網路</li>
@@ -326,7 +326,7 @@
 
 
         <span>
-            Last updated on Oct 24, 2024 17:03 UTC
+            Last updated on Jan 19, 2025 09:42 UTC
         </span>
     </section></footer>
 
@@ -448,7 +448,9 @@
     <section class="copyright">
         &copy; 
         
-        2024 Charlie
+            2024 - 
+        
+        2025 Charlie
     </section>
     
     <section class="powerby">

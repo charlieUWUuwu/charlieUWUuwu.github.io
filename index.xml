@@ -40,7 +40,7 @@
 &lt;p&gt;&lt;code&gt;--network bridge&lt;/code&gt;: Default Docker virtual netowrk, which is NAT&amp;rsquo;ed behind the Host IP&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;讓在同樣 host 的容器可以互相溝通&lt;/li&gt;
-&lt;li&gt;預設是沒有 DNS 的! 可以用&lt;code&gt;--link&lt;/code&gt;手動連接&lt;/li&gt;
+&lt;li&gt;可以用&lt;code&gt;--link&lt;/code&gt;手動連接&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -72,7 +72,7 @@
 &lt;li&gt;&lt;code&gt;docker network inspect bridge&lt;/code&gt;: 看 bridge 網路的內容(可以看到使用該網路的 container)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;code&gt;docker network create --driver&lt;/code&gt;: Create a network&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker network create &amp;lt;名字&amp;gt;&lt;/code&gt;: Create a network&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;docker network connect &amp;lt;network_ID&amp;gt; &amp;lt;container_ID&amp;gt;&lt;/code&gt;: Attach a network to container
 &lt;ul&gt;
 &lt;li&gt;這樣現有的容器可以不用停止運行，就接上指定網路&lt;/li&gt;
@@ -1683,7 +1683,9 @@ View the PDF file &lt;a class=&#34;pdf-source&#34; id=&#34;pdf-source-noscript-1
         <pubDate>Mon, 08 Apr 2024 00:00:00 +0000</pubDate>
         
         <guid>https://charlieUWUuwu.github.io/about/</guid>
-        <description>&lt;p&gt;這個人很懶，還沒寫自我介紹&lt;/p&gt;
+        <description>&lt;p&gt;喜歡畫畫、彈琴、聽音樂的人，是個即將邁入社會成為社畜的碩二生 :D。&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.google.com/document/d/1MxD3LmArETXh7yGwlLZYqeB_Yvs9Yu9L/edit?usp=sharing&amp;amp;ouid=117993475537815897866&amp;amp;rtpof=true&amp;amp;sd=true&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;點我看 Resume&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
