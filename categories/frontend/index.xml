@@ -30,6 +30,7 @@
 &lt;li&gt;EditorConfig&lt;/li&gt;
 &lt;li&gt;ESLint&lt;/li&gt;
 &lt;li&gt;Prettier - Code formatter&lt;/li&gt;
+&lt;li&gt;Prettier ESLint&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -315,7 +316,7 @@
 &lt;ul&gt;
 &lt;li&gt;打開 &lt;code&gt;setting.json&lt;/code&gt;
 &lt;ul&gt;
-&lt;li&gt;左下角齒輪 &amp;gt; Settings &amp;gt; 滾動一下畫面，看到藍色字的&lt;code&gt;edit in setting.json&lt;/code&gt;點下去就好&lt;/li&gt;
+&lt;li&gt;左下角齒輪 &amp;gt; Settings &amp;gt; 有全域的&lt;code&gt;User&lt;/code&gt;跟專案範圍的&lt;code&gt;Workspace&lt;/code&gt;可以選，選擇要的那個，往右上看有個文件上面有返回箭頭的符號，點擊!&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;添加設置如下&lt;/li&gt;
