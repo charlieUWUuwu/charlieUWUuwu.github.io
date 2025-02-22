@@ -8,15 +8,12 @@
         <language>en</language>
         <copyright>Charlie</copyright>
         <lastBuildDate>Sat, 22 Feb 2025 20:47:34 +0800</lastBuildDate><atom:link href="https://charlieUWUuwu.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Create_new_project</title>
-        <link>https://charlieUWUuwu.github.io/p/create_new_project/</link>
+        <title>建立完整 React 專案</title>
+        <link>https://charlieUWUuwu.github.io/p/%E5%BB%BA%E7%AB%8B%E5%AE%8C%E6%95%B4-react-%E5%B0%88%E6%A1%88/</link>
         <pubDate>Sat, 22 Feb 2025 20:47:34 +0800</pubDate>
         
-        <guid>https://charlieUWUuwu.github.io/p/create_new_project/</guid>
-        <description>&lt;h1 id=&#34;建立一個完整專案&#34;&gt;
-    &lt;a href=&#34;#%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b%e5%ae%8c%e6%95%b4%e5%b0%88%e6%a1%88&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
-    建立一個完整專案
-&lt;/h1&gt;&lt;p&gt;以下紀錄使用 &lt;code&gt;vite&lt;/code&gt; 建立專案，設置 &lt;code&gt;Tailewind CSS&lt;/code&gt;，並搭配 &lt;code&gt;Eslint&lt;/code&gt; + &lt;code&gt;Prettier&lt;/code&gt; 作風格控制的步驟。&lt;/p&gt;
+        <guid>https://charlieUWUuwu.github.io/p/%E5%BB%BA%E7%AB%8B%E5%AE%8C%E6%95%B4-react-%E5%B0%88%E6%A1%88/</guid>
+        <description>&lt;p&gt;以下紀錄使用 &lt;code&gt;vite&lt;/code&gt; 建立專案，設置 &lt;code&gt;Tailewind CSS&lt;/code&gt;，並搭配 &lt;code&gt;Eslint&lt;/code&gt; + &lt;code&gt;Prettier&lt;/code&gt; 作風格控制的步驟。&lt;/p&gt;
 &lt;h2 id=&#34;安裝&#34;&gt;
     &lt;a href=&#34;#%e5%ae%89%e8%a3%9d&#34; class=&#34;header-anchor&#34;&gt;#&lt;/a&gt;
     安裝
